@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { PrivateRoute } from 'router/index';
+import Login from './features/login';
+import Register from './features/register';
+import Posts from 'components/posts';
+import Users from 'components/users';
+import './styles/index.scss';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login}></Route>
+          <Route exact path="/register" component={Register}></Route>
+          <PrivateRoute exact path="/dashboard" component={Users}></PrivateRoute>
+          <PrivateRoute exact path="/dashboard/posts" component={Posts}></PrivateRoute>
+        </Switch>
+      </Router>
+    </QueryClientProvider>
   );
 }
 
