@@ -4,14 +4,14 @@ import { RemoveIcon } from 'icons/index';
 import { updateUser } from 'api/endpoints';
 import { UserType } from 'types/types';
 const Modal = (props: any) => {
-  const [userDetails, setUserDetails] = React.useState<UserType>({
-    id: 1,
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
-  });
   const { id, firstName, lastName, password, email } = props.item;
+  const [userDetails, setUserDetails] = React.useState<UserType>({
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    password: password,
+    email: email,
+  });
   const { mutate } = useMutation(updateUser);
 
   const editForm = (e: React.FormEvent<EventTarget>) => {
@@ -27,56 +27,71 @@ const Modal = (props: any) => {
         </span>
         <div className="content">
           <form onSubmit={editForm}>
-            <input
-              type="text"
-              defaultValue={id}
-              onChange={(e) =>
-                setUserDetails((prevData: any) => ({
-                  ...prevData,
-                  id: e.target.value,
-                }))
-              }
-            />
-            <input
-              type="text"
-              defaultValue={firstName}
-              onChange={(e) =>
-                setUserDetails((prevData: any) => ({
-                  ...prevData,
-                  firstName: e.target.value,
-                }))
-              }
-            />
-            <input
-              type="text"
-              defaultValue={lastName}
-              onChange={(e) =>
-                setUserDetails((prevData: any) => ({
-                  ...prevData,
-                  lastName: e.target.value,
-                }))
-              }
-            />
-            <input
-              type="text"
-              defaultValue={email}
-              onChange={(e) =>
-                setUserDetails((prevData: any) => ({
-                  ...prevData,
-                  email: e.target.value,
-                }))
-              }
-            />
-            <input
-              type="text"
-              defaultValue={password}
-              onChange={(e) =>
-                setUserDetails((prevData: any) => ({
-                  ...prevData,
-                  password: e.target.value,
-                }))
-              }
-            />
+            <div className="input-wrapper">
+              <label>ID</label>
+              <input
+                type="text"
+                defaultValue={id}
+                onChange={(e) =>
+                  setUserDetails((prevData: any) => ({
+                    ...prevData,
+                    id: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="input-wrapper">
+              <label>First Name</label>
+              <input
+                type="text"
+                defaultValue={firstName}
+                onChange={(e) =>
+                  setUserDetails((prevData: any) => ({
+                    ...prevData,
+                    firstName: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="input-wrapper">
+              <label>Last Name</label>
+              <input
+                type="text"
+                defaultValue={lastName}
+                onChange={(e) =>
+                  setUserDetails((prevData: any) => ({
+                    ...prevData,
+                    lastName: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="input-wrapper">
+              <label>E-mail</label>
+              <input
+                type="text"
+                defaultValue={email}
+                onChange={(e) =>
+                  setUserDetails((prevData: any) => ({
+                    ...prevData,
+                    email: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="input-wrapper">
+              <label>Password</label>
+              <input
+                type="text"
+                defaultValue={password}
+                onChange={(e) =>
+                  setUserDetails((prevData: any) => ({
+                    ...prevData,
+                    password: e.target.value,
+                  }))
+                }
+              />
+            </div>
             <button className="default-btn">Submit</button>
           </form>
         </div>
