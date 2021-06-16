@@ -4,7 +4,7 @@ import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from 'api/endpoints';
-import Loader from 'components/loader';
+import Loader from 'components/Loader';
 const Register = () => {
   let history = useHistory();
   const { mutate, isLoading, error } = useMutation(registerUser, {

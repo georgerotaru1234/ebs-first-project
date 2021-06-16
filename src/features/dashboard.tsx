@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from 'components/nav';
-import Statistics from 'components/statistics';
+import Navigation from 'components/Nav';
+import Statistics from 'components/Statistics';
 
 const Dashboard: React.FC = ({ children }) => {
   return (

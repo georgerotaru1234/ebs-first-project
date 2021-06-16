@@ -1,11 +1,11 @@
 import React from 'react';
 import { ClientIcon, PostIcon } from 'icons/index';
-import { useQuery } from 'react-query';
-import { getUsers, getPosts } from 'api/endpoints';
+import { useUsers } from 'hooks/useUsers';
+import { usePosts } from 'hooks/usePosts';
 
 const Statistics = () => {
-  const { data: userData, status: userStatus } = useQuery('Users', getUsers);
-  const { data: postData, status: postStatus } = useQuery('Posts', getPosts);
+  const { data: userData, status: userStatus } = useUsers();
+  const { data: postData, status: postStatus } = usePosts();
   return (
     <div className="statistics">
       <ul>

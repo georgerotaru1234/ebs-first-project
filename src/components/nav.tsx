@@ -1,26 +1,25 @@
-import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
 import { SocialIcon, TaskIcon } from 'icons';
-
 const Navigation = () => {
   const history = useHistory();
   const handleLogOut = () => {
-    console.log(1);
     localStorage.removeItem('key');
     history.push('/');
   };
+
+  const userName = `${localStorage.getItem('firstName')} ${localStorage.getItem('lastName')}`;
+  const email = localStorage.getItem('email');
   return (
     <nav className="menu">
       <div className="user-details">
-        <h5>George Rotaru</h5>
-        <span className="user-email">georgerotaru1234@gmail.com</span>
-        <button className="default-btn" onClick={() => handleLogOut()}>
+        <h5>{userName}</h5>
+        <span className="user-email">{email}</span>
+        <button className="btn btn--secondary btn--small" onClick={() => handleLogOut()}>
           SIGN OUT
         </button>
       </div>
       <ul className="navigation">
-        <li>
+        <li className={history.location.pathname === '/dashboard' ? 'active' : undefined}>
           <Link to="/dashboard">
             <span className="icon">
               <SocialIcon />
@@ -28,7 +27,7 @@ const Navigation = () => {
             Users
           </Link>
         </li>
-        <li>
+        <li className={history.location.pathname === '/dashboard/posts' ? 'active' : undefined}>
           <Link to="/dashboard/posts">
             <span className="icon">
               <TaskIcon />

@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import { UserType } from 'types/types';
-import { getUsers } from 'api/endpoints';
-import Loader from './loader';
-import Modal from './modal';
+import { useUsers } from 'hooks/useUsers';
+import Loader from './Loader';
+import Modal from './Modal';
 const Users = () => {
   const [modal, setModal] = useState(false);
-  const [item, setItem] = useState({});
-  const { data: users, status } = useQuery('Users', getUsers);
-  const handleModal = (item: UserType) => {
-    setModal(!modal);
+  const [item, setItem] = useState<UserType>();
+  const { data: users, status } = useUsers();
+  const changeUserData = (item: UserType) => {
+    setModal(true);
     setItem(item);
+  };
+  const closeModal = () => {
+    setModal(false);
   };
   return (
     <div className="users-wrapper">
@@ -25,8 +27,8 @@ const Users = () => {
         <span>EDIT USER DATA</span>
       </div>
       {status === 'success' &&
-        users.map((item: UserType) => {
-          const { id, firstName, lastName, email, password } = item;
+        users.map((element: UserType) => {
+          const { id, firstName, lastName, email, password } = element;
           return (
             <div className="user-card" key={id}>
               <span>{id}</span>
@@ -34,15 +36,15 @@ const Users = () => {
               <span>{lastName}</span>
               <span>{email}</span>
               <span>{password}</span>
-              <span>
-                <button className="default-btn" onClick={() => handleModal(item)}>
+              <span className="edit-user">
+                <button className="btn btn--secondary btn--small" onClick={() => changeUserData(element)}>
                   Edit
                 </button>
               </span>
             </div>
           );
         })}
-      {modal && <Modal item={item} onRequestClose={handleModal} />}
+      {modal && <Modal item={item!} closeModal={closeModal} />}
     </div>
   );
 };

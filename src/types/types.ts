@@ -5,6 +5,7 @@ export interface RegisterType {
   password: string;
   confirmPassword?: string;
 }
+
 export interface LoginType {
   email: string;
   password: string;
@@ -12,6 +13,9 @@ export interface LoginType {
 }
 export interface PostType {
   id: number;
+  createdAt: string;
+  categories: string[];
+  image: string;
   title: string;
   body: string;
 }

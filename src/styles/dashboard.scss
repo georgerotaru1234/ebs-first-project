@@ -1,0 +1,14 @@
+.dashboard-wrapper {
+  display: flex;
+  .fix-content-overflow {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .wrapper {
+    background-color: #fbfcfd;
+    padding: 30px;
+    flex: 1;
+  }
+}

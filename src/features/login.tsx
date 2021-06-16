@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { RegisterType } from 'types/types';
+import { UserType } from 'types/types';
 import { LoginType } from 'types/types';
-import { getUsers } from 'api/endpoints';
-import Loader from 'components/loader';
+import { useUsers } from 'hooks/useUsers';
+import Loader from 'components/Loader';
 
 const Login = () => {
-  const { data: users, status } = useQuery('users', getUsers);
+  const { data: users, status } = useUsers();
   const history = useHistory();
   const [userData, setUserData] = React.useState<LoginType>({
     email: '',
@@ -17,21 +16,22 @@ const Login = () => {
 
   const handleForm = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    const res = users.filter((item: RegisterType) => {
+    users.filter((item: UserType) => {
       if (item.email === userData.email && item.password === userData.password) {
-        return true;
+        for (let element in item) {
+          if (element === 'password') {
+            continue;
+          }
+          localStorage.setItem(element, item[element as keyof UserType] + '');
+          history.push('/dashboard');
+        }
       }
       return false;
     });
-    if (res.length) {
-      localStorage.setItem('key', res[0].id);
-      history.push('/dashboard');
-    } else {
-      setUserData((prevData) => ({
-        ...prevData,
-        error: 'Your Password or Email is incorrect',
-      }));
-    }
+    setUserData((prevData) => ({
+      ...prevData,
+      error: 'Your Password or Email is incorrect',
+    }));
   };
 
   return (
@@ -39,7 +39,7 @@ const Login = () => {
       {status === 'error' && <p>Something is wrong!</p>}
       {status === 'loading' && <Loader />}
       <form className="login-form" onSubmit={handleForm}>
-        {userData.error && <p className="login-error">{userData.error}</p>}
+        {userData.error && <p className="danger">{userData.error}</p>}
         <div className="input-wrapper">
           <label>E-mail</label>
           <input

@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { PrivateRoute } from 'router/index';
-import Login from './features/login';
-import Register from './features/register';
-import Posts from 'components/posts';
-import Users from 'components/users';
+import Login from './features/Login';
+import Register from './features/Register';
+import Posts from 'components/Posts';
+import Users from 'components/Users';
 import './styles/index.scss';
 
 const queryClient = new QueryClient();

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Dashboard from 'features/dashboard';
+import Dashboard from 'features/Dashboard';
 
-export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isKey = localStorage.hasOwnProperty('key') && localStorage.getItem('key') !== 'undefined' ? true : false;
+export const PrivateRoute = ({ component: Component, ...rest }: any) => {
+  const isKey = localStorage.hasOwnProperty('id') && localStorage.getItem('id') !== 'undefined' ? true : false;
   return (
     // Show the component only when the user is logged in
     <Route

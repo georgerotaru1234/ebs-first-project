@@ -1,0 +1,50 @@
+.btn {
+  text-transform: uppercase;
+  font-size: 12px;
+  border: none;
+  transition: 0.2s ease-in-out;
+  padding: 5px 27px;
+  line-height: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 30px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  align-self: self-start;
+
+  &--secondary {
+    background: #f2f9fe;
+    color: #2196f3;
+    &:hover {
+      background: #64b5f6;
+      color: #fff;
+      border-color: transparent;
+    }
+  }
+  &--small {
+    padding: 3px 15px;
+  }
+}
+.input-wrapper {
+  margin: 0 0 20px;
+  label {
+    display: block;
+    font-size: 14px;
+    margin: 0 0 5px;
+    color: $darkGray;
+  }
+  input {
+    display: block;
+    width: 100%;
+    line-height: 30px;
+    font-size: 14px;
+    border: 1px solid $secondaryColor;
+    border-radius: 4px;
+    padding: 5px;
+    &:focus {
+      outline-color: $primaryColor;
+      outline-width: 2px;
+    }
+  }
+}

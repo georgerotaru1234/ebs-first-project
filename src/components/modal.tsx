@@ -1,37 +1,50 @@
-import React from 'react';
-import { useMutation } from 'react-query';
+import React, { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { RemoveIcon } from 'icons/index';
 import { updateUser } from 'api/endpoints';
 import { UserType } from 'types/types';
-const Modal = (props: any) => {
-  const { id, firstName, lastName, password, email } = props.item;
-  const [userDetails, setUserDetails] = React.useState<UserType>({
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    password: password,
-    email: email,
+import Loader from './Loader';
+
+interface ModalProps {
+  item: UserType;
+  closeModal: () => void;
+}
+const Modal = ({ item, closeModal }: ModalProps) => {
+  const queryClient = useQueryClient();
+  const [userDetails, setUserDetails] = useState<UserType>({
+    id: item.id,
+    firstName: item.firstName,
+    lastName: item.lastName,
+    password: item.password,
+    email: item.email,
   });
-  const { mutate } = useMutation(updateUser);
+  const { mutate, isLoading, error } = useMutation(updateUser);
 
   const editForm = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    console.log(userDetails, 'userDetails');
-    mutate(userDetails);
+    mutate(userDetails, {
+      onSuccess: () => {
+        queryClient.refetchQueries(['users'], { stale: true, exact: true });
+        closeModal();
+      },
+    });
   };
+
   return (
     <div className="modal">
       <div className="modal-wrapper">
-        <span className="close-modal" onClick={props.onRequestClose}>
+        <span className="close-modal" onClick={() => closeModal()}>
           <RemoveIcon />
         </span>
         <div className="content">
+          {isLoading && <Loader />}
+          {error && <p>Error!!</p>}
           <form onSubmit={editForm}>
             <div className="input-wrapper">
               <label>ID</label>
               <input
                 type="text"
-                defaultValue={id}
+                defaultValue={userDetails.id}
                 onChange={(e) =>
                   setUserDetails((prevData: any) => ({
                     ...prevData,
@@ -44,7 +57,7 @@ const Modal = (props: any) => {
               <label>First Name</label>
               <input
                 type="text"
-                defaultValue={firstName}
+                defaultValue={userDetails.firstName}
                 onChange={(e) =>
                   setUserDetails((prevData: any) => ({
                     ...prevData,
@@ -57,7 +70,7 @@ const Modal = (props: any) => {
               <label>Last Name</label>
               <input
                 type="text"
-                defaultValue={lastName}
+                defaultValue={userDetails.lastName}
                 onChange={(e) =>
                   setUserDetails((prevData: any) => ({
                     ...prevData,
@@ -70,7 +83,7 @@ const Modal = (props: any) => {
               <label>E-mail</label>
               <input
                 type="text"
-                defaultValue={email}
+                defaultValue={userDetails.email}
                 onChange={(e) =>
                   setUserDetails((prevData: any) => ({
                     ...prevData,
@@ -83,7 +96,7 @@ const Modal = (props: any) => {
               <label>Password</label>
               <input
                 type="text"
-                defaultValue={password}
+                defaultValue={userDetails.password}
                 onChange={(e) =>
                   setUserDetails((prevData: any) => ({
                     ...prevData,
@@ -92,7 +105,7 @@ const Modal = (props: any) => {
                 }
               />
             </div>
-            <button className="default-btn">Submit</button>
+            <button className="btn btn--secondary btn--small">SAVE</button>
           </form>
         </div>
       </div>
