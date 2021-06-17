@@ -4,6 +4,7 @@ import { UserType } from 'types/types';
 import { LoginType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
 import Loader from 'components/Loader';
+import Button from 'components/Button';
 
 const Login = () => {
   const { data: users, status } = useUsers();
@@ -69,7 +70,7 @@ const Login = () => {
         <div className="form-footer">
           <Link to="/register">Create new account.</Link>
           <div className="submit-form">
-            <button className="default-btn">Submit</button>
+            <button className="btn btn--secondary btn--small">Submit</button>
           </div>
         </div>
       </form>

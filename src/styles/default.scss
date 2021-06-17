@@ -25,6 +25,21 @@
   &--small {
     padding: 3px 15px;
   }
+  &--icon {
+    display: flex;
+    align-items: center;
+    &:hover {
+      svg {
+        fill: #fff;
+      }
+    }
+    svg {
+      width: 15px;
+      margin-right: 7px;
+      fill: $primaryColor;
+      opacity: 1;
+    }
+  }
 }
 .input-wrapper {
   margin: 0 0 20px;
@@ -46,5 +61,24 @@
       outline-color: $primaryColor;
       outline-width: 2px;
     }
+  }
+}
+.textarea {
+  display: block;
+  width: 100%;
+  line-height: 20px;
+  font-size: 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 5px;
+  font-family: 'Roboto';
+  overflow: hidden;
+  max-width: 100%;
+  min-width: 100%;
+  &--description {
+    height: 220px;
+  }
+  &--title {
+    height: 80px;
   }
 }

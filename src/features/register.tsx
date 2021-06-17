@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from 'api/endpoints';
+import { validatePassword } from 'utils';
 import Loader from 'components/Loader';
 const Register = () => {
   let history = useHistory();
@@ -15,28 +16,54 @@ const Register = () => {
       }
     },
   });
-  const [registerData, setRegisterData] = React.useState<RegisterType>({
+  const [registerData, setRegisterData] = useState<RegisterType>({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
   });
+  const [errors, setErrors] = useState({
+    formErrors: '',
+  });
 
   const handleForm = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    mutate(registerData);
-    setRegisterData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    });
-    console.log(mutate);
+    const validate = validatePassword();
+    if (!errors.formErrors.length) {
+      mutate(registerData);
+      setRegisterData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+    }
+  };
+
+  const validatePassword = () => {
+    if (registerData.password.length < 8) {
+      setErrors({
+        formErrors: [...errors.formErrors, 'Your password must be at least 8 characters'],
+      });
+      // errors.push('Your password must be at least 8 characters');
+    }
+    if (registerData.password.search(/[a-z]/i) < 0) {
+      setErrors({
+        formErrors: [...errors.formErrors, 'Your password must contain at least one letter.'],
+      });
+    }
+    if (registerData.password.search(/[0-9]/) < 0) {
+      setErrors({
+        formErrors: [...errors.formErrors, 'Your password must contain at least one digit.'],
+      });
+    }
+    return true;
   };
 
   return (
     <div>
+      {/* {errors && <p className="danger">{errors}</p>} */}
       <form className="login-form" onSubmit={handleForm}>
         {isLoading && <Loader />}
         {error && <p>Something is wrong!!!</p>}
@@ -107,7 +134,7 @@ const Register = () => {
         </div>
         <div className="form-footer">
           <Link to="/">Login</Link>
-          <button className="default-btn">Submit</button>
+          <button className="btn btn--secondary btn--small">Submit</button>
         </div>
       </form>
     </div>

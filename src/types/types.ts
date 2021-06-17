@@ -12,10 +12,8 @@ export interface LoginType {
   error: string;
 }
 export interface PostType {
-  id: number;
+  id?: number;
   createdAt: string;
-  categories: string[];
-  image: string;
   title: string;
   body: string;
 }

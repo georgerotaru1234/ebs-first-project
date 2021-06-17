@@ -19,6 +19,8 @@ function App() {
           <Route exact path="/register" component={Register}></Route>
           <PrivateRoute exact path="/dashboard" component={Users}></PrivateRoute>
           <PrivateRoute exact path="/dashboard/posts" component={Posts}></PrivateRoute>
+          <PrivateRoute exact path="/dashboard/posts/edit-post" component={Posts}></PrivateRoute>
+          <PrivateRoute exact path="/dashboard/users/edit-user" component={Posts}></PrivateRoute>
         </Switch>
       </Router>
     </QueryClientProvider>

@@ -3,21 +3,22 @@ import { UserType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
 import Loader from './Loader';
 import Modal from './Modal';
+import EditUserForm from './EditUserForm';
 const Users = () => {
-  const [modal, setModal] = useState(false);
+  const [isModalVisible, setModalVisibility] = useState(false);
   const [item, setItem] = useState<UserType>();
-  const { data: users, status } = useUsers();
+  const { data: users, isLoading, error, isSuccess } = useUsers();
   const changeUserData = (item: UserType) => {
-    setModal(true);
+    setModalVisibility(true);
     setItem(item);
   };
   const closeModal = () => {
-    setModal(false);
+    setModalVisibility(false);
   };
   return (
     <div className="users-wrapper">
-      {status === 'loading' && <Loader />}
-      {status === 'error' && <p>Error!!</p>}
+      {isLoading && <Loader />}
+      {error && <p>Error!!</p>}
       <div className="user-card">
         <span>ID</span>
         <span>FIRST NAME</span>
@@ -26,7 +27,7 @@ const Users = () => {
         <span>PASSWORD</span>
         <span>EDIT USER DATA</span>
       </div>
-      {status === 'success' &&
+      {isSuccess &&
         users.map((element: UserType) => {
           const { id, firstName, lastName, email, password } = element;
           return (
@@ -44,7 +45,11 @@ const Users = () => {
             </div>
           );
         })}
-      {modal && <Modal item={item!} closeModal={closeModal} />}
+      {isModalVisible && (
+        <Modal closeModal={closeModal}>
+          <EditUserForm item={item!} closeModal={closeModal} />
+        </Modal>
+      )}
     </div>
   );
 };
