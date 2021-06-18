@@ -16,7 +16,7 @@ const Users = () => {
     setModalVisibility(false);
   };
   return (
-    <div className="users-wrapper">
+    <div className="users">
       {isLoading && <Loader />}
       {error && <p>Error!!</p>}
       <div className="user-card">
@@ -37,7 +37,7 @@ const Users = () => {
               <span>{lastName}</span>
               <span>{email}</span>
               <span>{password}</span>
-              <span className="edit-user">
+              <span className="users--edit-user">
                 <button className="btn btn--secondary btn--small" onClick={() => changeUserData(element)}>
                   Edit
                 </button>

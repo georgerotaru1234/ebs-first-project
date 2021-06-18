@@ -4,18 +4,18 @@
   max-width: 350px;
   margin: 0 auto;
   border-radius: 4px;
-  .form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    a {
-      color: $primaryColor;
-      font-size: 10px;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-  }
+}
+.default--form--footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.link {
+  color: $primaryColor;
+  font-size: 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .absolute-center {
   position: absolute;

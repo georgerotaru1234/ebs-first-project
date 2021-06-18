@@ -11,24 +11,24 @@ const Navigation = () => {
   const email = localStorage.getItem('email');
   return (
     <nav className="menu">
-      <div className="user-details">
-        <h5>{userName}</h5>
-        <span className="user-email">{email}</span>
+      <div className="menu--user-details">
+        <h5 className="menu--name">{userName}</h5>
+        <span className="menu--user-email">{email}</span>
         <button className="btn btn--secondary btn--small" onClick={() => handleLogOut()}>
           SIGN OUT
         </button>
       </div>
-      <ul className="navigation">
-        <li className={history.location.pathname === '/dashboard' ? 'active' : undefined}>
-          <Link to="/dashboard">
+      <ul className="menu--navigation">
+        <li className={`menu--list ${history.location.pathname === '/dashboard' ? 'active' : ''}`}>
+          <Link className="menu--link" to="/dashboard">
             <span className="icon">
               <SocialIcon />
             </span>
             Users
           </Link>
         </li>
-        <li className={history.location.pathname === '/dashboard/posts' ? 'active' : undefined}>
-          <Link to="/dashboard/posts">
+        <li className={`menu--list ${history.location.pathname === '/dashboard/posts' ? 'active' : ''}`}>
+          <Link className="menu--link" to="/dashboard/posts">
             <span className="icon">
               <TaskIcon />
             </span>
