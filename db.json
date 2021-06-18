@@ -72,6 +72,49 @@
       "email": "Julianne.OConner@kory.org",
       "password": "fas432ge1",
       "id": 3
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "confirmPassword": "",
+      "errors": [],
+      "id": 4
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "confirmPassword": "",
+      "errors": [],
+      "id": 5
+    },
+    {
+      "firstName": "george",
+      "lastName": "rotaru",
+      "email": "mama@mail.ry",
+      "password": "22061993As!",
+      "confirmPassword": "22061993As!",
+      "errors": [
+        "Your password and confirm password are not equal"
+      ],
+      "id": 6
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "maria.chetrari.93@mail.ru",
+      "password": "22061993As!",
+      "confirmPassword": "22061993As!",
+      "errors": [
+        "Provide a valid First Name",
+        "Provide a valid LastName",
+        "Provide a valid E-mail",
+        "Password must contain minimum eight characters, at least one letter, at least one special character and one number:"
+      ],
+      "id": 7
     }
   ]
 }

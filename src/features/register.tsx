@@ -4,6 +4,7 @@ import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from 'api/endpoints';
+import { validateForm } from 'utils';
 import Loader from 'components/Loader';
 import Alert from 'components/Alert';
 
@@ -28,8 +29,8 @@ const Register = () => {
 
   const handleForm = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    const validateForm = validator(registerData);
-    if (validateForm) {
+    const formValidation = validateForm(registerData);
+    if (formValidation === true) {
       mutate(registerData);
       setRegisterData({
         firstName: '',
@@ -39,50 +40,12 @@ const Register = () => {
         confirmPassword: '',
         errors: [],
       });
-    }
-  };
-
-  const validator = (value: RegisterType) => {
-    const invalid: string[] = [];
-    const allLetters = /^[a-zA-Z]+$/;
-    // const letter = /[a-zA-Z]/;
-    // const number = /[0-9]/;
-    const passRgx = /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*[^\w\s])\S{8,}$/;
-
-    if (!allLetters.test(value.firstName)) {
-      invalid.push('Provide a valid First Name');
-    }
-
-    if (!allLetters.test(value.lastName)) {
-      invalid.push('Provide a valid LastName');
-    }
-
-    if (
-      value.email.indexOf('@') < 1 ||
-      value.email.lastIndexOf('.') < value.email.indexOf('@') + 2 ||
-      value.email.lastIndexOf('.') + 2 >= value.email.length
-    ) {
-      invalid.push('Provide a valid E-mail');
-    }
-
-    if (!passRgx.test(value.password)) {
-      console.log(passRgx.test(value.password));
-      invalid.push(
-        'Password must contain minimum eight characters, at least one letter, at least one special character and one number:',
-      );
-    }
-
-    if (registerData.password !== registerData.confirmPassword) {
-      invalid.push('Your password and confirm password are not equal');
-    }
-    if (invalid.length !== 0) {
+    } else {
       setRegisterData((prevData) => ({
         ...prevData,
-        errors: invalid,
+        errors: formValidation,
       }));
-      return false;
     }
-    return true;
   };
 
   return (
