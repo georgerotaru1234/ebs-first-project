@@ -10,7 +10,7 @@ const Modal = ({ children, closeModal }: Props) => {
         <span className="close-modal" onClick={() => closeModal()}>
           <RemoveIcon />
         </span>
-        <div className="content">{children}</div>
+        <div className="modal--content">{children}</div>
       </div>
     </div>
   );
