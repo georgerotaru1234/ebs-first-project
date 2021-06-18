@@ -52,24 +52,24 @@
 }
 .input-wrapper {
   margin: 0 0 10px;
-  label {
-    display: block;
-    font-size: 14px;
-    margin: 0 0 5px;
-    color: $darkGray;
-  }
-  input {
-    display: block;
-    width: 100%;
-    line-height: 25px;
-    font-size: 14px;
-    border: 1px solid $secondaryColor;
-    border-radius: 4px;
-    padding: 5px;
-    &:focus {
-      outline-color: $primaryColor;
-      outline-width: 2px;
-    }
+}
+.input-label {
+  display: block;
+  font-size: 14px;
+  margin: 0 0 5px;
+  color: $darkGray;
+}
+.input-field {
+  display: block;
+  width: 100%;
+  line-height: 25px;
+  font-size: 14px;
+  border: 1px solid $secondaryColor;
+  border-radius: 4px;
+  padding: 5px;
+  &:focus {
+    outline-color: $primaryColor;
+    outline-width: 2px;
   }
 }
 .textarea {

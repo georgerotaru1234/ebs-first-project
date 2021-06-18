@@ -31,7 +31,7 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
       {error && <p>Error!</p>}
       <form onSubmit={submitPost}>
         <div className="input-wrapper">
-          <label>Title:</label>
+          <label className="input-label">Title:</label>
           <textarea
             className="textarea textarea--title"
             defaultValue={newPost.title}
@@ -44,7 +44,7 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
           ></textarea>
         </div>
         <div className="input-wrapper">
-          <label>Description:</label>
+          <label className="input-label">Description:</label>
           <textarea
             className="textarea textarea--description"
             defaultValue={newPost.body}
@@ -57,8 +57,9 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
           ></textarea>
         </div>
         <div className="input-wrapper">
-          <label>Date:</label>
+          <label className="input-label">Date:</label>
           <input
+            className="input-field"
             defaultValue={newPost.createdAt}
             onChange={(e) =>
               setNewPost((prevData: any) => ({

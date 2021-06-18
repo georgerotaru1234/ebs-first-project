@@ -31,7 +31,7 @@ const AddNewPost = ({ closeModal }: NewPostProps) => {
       {error && <p>Error!</p>}
       <form onSubmit={submitNewPost}>
         <div className="input-wrapper">
-          <label>Title:</label>
+          <label className="input-label">Title:</label>
           <textarea
             className="textarea textarea--title"
             value={newPost.title}
@@ -44,7 +44,7 @@ const AddNewPost = ({ closeModal }: NewPostProps) => {
           ></textarea>
         </div>
         <div className="input-wrapper">
-          <label>Description:</label>
+          <label className="input-label">Description:</label>
           <textarea
             className="textarea textarea--description"
             value={newPost.body}

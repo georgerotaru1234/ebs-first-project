@@ -1,63 +1,63 @@
-.post-wrapper {
+.posts-wrapper {
   display: flex;
   flex-wrap: wrap;
   min-width: 32%;
   justify-content: space-between;
   padding: 30px 0 0;
-  .posts-header {
-    width: 100%;
-    margin: 0 0 20px;
-  }
-  .card {
-    background: #ffffff;
-    box-sizing: border-box;
-    border-radius: 4px;
-    width: 32%;
-    min-width: 30%;
-    margin: 0 0 20px;
-    .post-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      flex: 1;
-    }
-    .content-wrapper {
-      border: 1px solid #e5e5e5;
-      padding: 20px;
-      border-radius: 4px;
-      height: 100%;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-    }
-    .title {
-      font-size: 12px;
-      text-transform: uppercase;
-      margin: 0 0 12px;
-      line-height: 19px;
-    }
-    .description {
-      font-size: 13px;
-      line-height: 18px;
-      color: #9e9e9e;
-      margin: 0 0 10px;
-    }
-    .post-footer {
-      margin: 10px 0 0;
-      padding: 10px 0 0;
-      border-top: 1px solid #efefef;
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      text-transform: uppercase;
-      color: #9e9e9e;
-      transition: all 0.25s ease-in-out;
-      align-items: center;
-    }
-    .date {
-      &:hover {
-        color: $primaryColor;
-      }
-    }
+}
+.posts-header {
+  width: 100%;
+  margin: 0 0 20px;
+}
+.card {
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 32%;
+  min-width: 30%;
+  margin: 0 0 20px;
+}
+.card--content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+.card--content--wrapper {
+  border: 1px solid #e5e5e5;
+  padding: 20px;
+  border-radius: 4px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.card--title {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  line-height: 19px;
+}
+.card--description {
+  font-size: 13px;
+  line-height: 18px;
+  color: #9e9e9e;
+  margin: 0 0 10px;
+}
+.card--post--footer {
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid #efefef;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #9e9e9e;
+  transition: all 0.25s ease-in-out;
+  align-items: center;
+}
+.card--date {
+  &:hover {
+    color: $primaryColor;
   }
 }

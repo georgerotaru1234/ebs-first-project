@@ -102,8 +102,9 @@ const Register = () => {
             })
           : null}
         <div className="input-wrapper">
-          <label>First Name</label>
+          <label className="input-label">First Name</label>
           <input
+            className="input-field"
             type="text"
             name="firstName"
             value={registerData.firstName}
@@ -116,8 +117,9 @@ const Register = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label>Last Name</label>
+          <label className="input-label">Last Name</label>
           <input
+            className="input-field"
             type="text"
             name="lastName"
             value={registerData.lastName}
@@ -130,8 +132,9 @@ const Register = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label>E-mail</label>
+          <label className="input-label">E-mail</label>
           <input
+            className="input-field"
             type="text"
             name="email"
             value={registerData.email}
@@ -144,8 +147,9 @@ const Register = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label>Password</label>
+          <label className="input-label">Password</label>
           <input
+            className="input-field"
             type="password"
             name="password"
             value={registerData.password}
@@ -158,8 +162,9 @@ const Register = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label>Confirm Password</label>
+          <label className="input-label">Confirm Password</label>
           <input
+            className="input-field"
             type="password"
             name="confirmPassword"
             value={registerData.confirmPassword}
@@ -171,8 +176,10 @@ const Register = () => {
             }
           />
         </div>
-        <div className="form-footer">
-          <Link to="/">Login</Link>
+        <div className="default--form--footer">
+          <Link className="link" to="/">
+            Login
+          </Link>
           <button className="btn btn--secondary btn--small">Submit</button>
         </div>
       </form>

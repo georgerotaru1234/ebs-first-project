@@ -1,12 +1,12 @@
-.users-wrapper {
+.users {
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   margin: 30px 0 0;
   overflow: hidden;
   font-size: 13px;
-  .edit-user {
-    font-size: 10px;
-  }
+}
+.users--edit-user {
+  font-size: 10px;
 }
 .user-card {
   display: grid;

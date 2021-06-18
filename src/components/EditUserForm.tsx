@@ -35,8 +35,9 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
       {error && <p>Error!!</p>}
       <form onSubmit={editForm}>
         <div className="input-wrapper">
-          <label>ID</label>
+          <label className="input-label">ID</label>
           <input
+            className="input-field"
             type="text"
             defaultValue={userDetails.id}
             onChange={(e) =>
@@ -48,8 +49,9 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
           />
         </div>
         <div className="input-wrapper">
-          <label>First Name</label>
+          <label className="input-label">First Name</label>
           <input
+            className="input-field"
             type="text"
             defaultValue={userDetails.firstName}
             onChange={(e) =>
@@ -61,8 +63,9 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
           />
         </div>
         <div className="input-wrapper">
-          <label>Last Name</label>
+          <label className="input-label">Last Name</label>
           <input
+            className="input-field"
             type="text"
             defaultValue={userDetails.lastName}
             onChange={(e) =>
@@ -74,8 +77,9 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
           />
         </div>
         <div className="input-wrapper">
-          <label>E-mail</label>
+          <label className="input-label">E-mail</label>
           <input
+            className="input-field"
             type="text"
             defaultValue={userDetails.email}
             onChange={(e) =>
@@ -87,8 +91,9 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
           />
         </div>
         <div className="input-wrapper">
-          <label>Password</label>
+          <label className="input-label">Password</label>
           <input
+            className="input-field"
             type="text"
             defaultValue={userDetails.password}
             onChange={(e) =>

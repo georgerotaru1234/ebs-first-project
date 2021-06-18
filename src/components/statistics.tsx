@@ -8,21 +8,21 @@ const Statistics = () => {
   const { data: postData, status: postStatus } = usePosts();
   return (
     <div className="statistics">
-      <ul>
-        <li className="item">
+      <ul className="statistics--wrapper">
+        <li className="statistics--item">
           <span className="icon">
             <ClientIcon />
           </span>
           <p>
-            <span className="count">{userStatus === 'success' && userData.length}</span> Users
+            <span className="statistics--count">{userStatus === 'success' && userData.length}</span> Users
           </p>
         </li>
-        <li className="item">
+        <li className="statistics--item">
           <span className="icon">
             <PostIcon />
           </span>
           <p>
-            <span className="count">{postStatus === 'success' && postData.length}</span> Posts
+            <span className="statistics--count">{postStatus === 'success' && postData.length}</span> Posts
           </p>
         </li>
       </ul>

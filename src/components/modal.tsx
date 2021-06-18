@@ -6,11 +6,11 @@ interface Props {
 const Modal = ({ children, closeModal }: Props) => {
   return (
     <div className="modal">
-      <div className="modal-wrapper">
+      <div className="modal--wrapper">
         <span className="close-modal" onClick={() => closeModal()}>
           <RemoveIcon />
         </span>
-        <div className="content">{children}</div>
+        <div className="modal--content">{children}</div>
       </div>
     </div>
   );

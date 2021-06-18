@@ -42,8 +42,9 @@ const Login = () => {
         <h5 className="form-title">Login</h5>
         {userData.error && <Alert className="alert alert--danger">{userData.error}</Alert>}
         <div className="input-wrapper">
-          <label>E-mail</label>
+          <label className="input-label">E-mail</label>
           <input
+            className="input-field"
             type="text"
             value={userData.email}
             onChange={(e) =>
@@ -55,8 +56,9 @@ const Login = () => {
           />
         </div>
         <div className="input-wrapper">
-          <label>Password</label>
+          <label className="input-label">Password</label>
           <input
+            className="input-field"
             type="password"
             value={userData.password}
             onChange={(e) =>
@@ -67,8 +69,10 @@ const Login = () => {
             }
           />
         </div>
-        <div className="form-footer">
-          <Link to="/register">Create new account.</Link>
+        <div className="default--form--footer">
+          <Link className="link" to="/register">
+            Create new account.
+          </Link>
           <div className="submit-form">
             <button className="btn btn--secondary btn--small">Submit</button>
           </div>

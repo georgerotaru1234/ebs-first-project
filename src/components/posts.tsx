@@ -36,7 +36,7 @@ const Posts = () => {
     setFormVisibility(false);
   };
   return (
-    <div className="post-wrapper">
+    <div className="posts-wrapper">
       <div className="posts-header">
         <button className="btn btn--secondary btn--small btn--icon" onClick={() => addNewPost()}>
           <PlusIcon />
@@ -49,13 +49,13 @@ const Posts = () => {
         postData.map((item: PostType) => {
           return (
             <div className="card" key={item.id}>
-              <div className="content-wrapper">
-                <div className="post-content">
-                  <h5 className="title">{item.title}</h5>
-                  <p className="description">{item.body}</p>
+              <div className="card--content--wrapper">
+                <div className="card--post--content">
+                  <h5 className="card--title">{item.title}</h5>
+                  <p className="card--description">{item.body}</p>
                 </div>
-                <div className="post-footer">
-                  <div className="date">
+                <div className="card--post--footer">
+                  <div className="card--date">
                     <span>Date: </span>
                     <span>{item.createdAt}</span>
                   </div>
