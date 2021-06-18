@@ -74,19 +74,19 @@
       "id": 3
     },
     {
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "georgerotaru1234@gmail.com",
+      "password": "3123x123c21c4",
       "confirmPassword": "",
       "errors": [],
       "id": 4
     },
     {
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
+      "firstName": "Rotaru",
+      "lastName": "George",
+      "email": "georgerotaru1234@gmail.com",
+      "password": "cgdfshfjbj3243",
       "confirmPassword": "",
       "errors": [],
       "id": 5

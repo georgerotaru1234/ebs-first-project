@@ -3,7 +3,7 @@ import { SocialIcon, TaskIcon } from 'icons';
 const Navigation = () => {
   const history = useHistory();
   const handleLogOut = () => {
-    localStorage.removeItem('key');
+    localStorage.clear();
     history.push('/');
   };
 

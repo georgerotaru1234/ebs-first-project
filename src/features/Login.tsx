@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { UserType } from 'types/types';
 import { LoginType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
+import { isLoggedIn } from 'utils';
 import Loader from 'components/Loader';
 import Alert from 'components/Alert';
+
 const Login = () => {
   const { data: users, status } = useUsers();
   const history = useHistory();
@@ -36,6 +38,7 @@ const Login = () => {
 
   return (
     <div>
+      {isLoggedIn() && <Redirect to="/dashboard" />}
       {status === 'error' && <p>Something is wrong!</p>}
       {status === 'loading' && <Loader />}
       <form className="default-form absolute-center" onSubmit={handleForm}>

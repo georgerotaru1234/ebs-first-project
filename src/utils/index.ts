@@ -50,3 +50,7 @@ export const validateForm = (value: RegisterType) => {
     return true;
   }
 };
+export const isLoggedIn = () => {
+  const isKey = localStorage.hasOwnProperty('id') && localStorage.getItem('id') !== 'undefined' ? true : false;
+  return isKey;
+};

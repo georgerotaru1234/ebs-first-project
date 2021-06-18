@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from 'api/endpoints';
-import { validateForm } from 'utils';
+import { validateForm, isLoggedIn } from 'utils';
 import Loader from 'components/Loader';
 import Alert from 'components/Alert';
 
@@ -50,6 +50,7 @@ const Register = () => {
 
   return (
     <div>
+      {isLoggedIn() && <Redirect to="/dashboard" />}
       <form className="default-form absolute-center" onSubmit={handleForm}>
         <h5 className="form-title">Register</h5>
         {isLoading && <Loader />}
