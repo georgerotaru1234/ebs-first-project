@@ -41,8 +41,17 @@
     }
   }
 }
+.form-title {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: $darkGray;
+  border-bottom: 1px solid $secondaryColor;
+  padding: 0 0 5px;
+  margin: 0 0 10px;
+}
 .input-wrapper {
-  margin: 0 0 20px;
+  margin: 0 0 10px;
   label {
     display: block;
     font-size: 14px;
@@ -52,7 +61,7 @@
   input {
     display: block;
     width: 100%;
-    line-height: 30px;
+    line-height: 25px;
     font-size: 14px;
     border: 1px solid $secondaryColor;
     border-radius: 4px;
@@ -80,5 +89,20 @@
   }
   &--title {
     height: 80px;
+  }
+}
+
+.alert {
+  position: relative;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  &--danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
   }
 }

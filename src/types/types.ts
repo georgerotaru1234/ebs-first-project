@@ -3,7 +3,8 @@ export interface RegisterType {
   lastName: string;
   email: string;
   password: string;
-  confirmPassword?: string;
+  confirmPassword: string;
+  errors: string[];
 }
 
 export interface LoginType {

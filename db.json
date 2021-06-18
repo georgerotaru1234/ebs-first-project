@@ -53,7 +53,7 @@
   "comments": [],
   "profile": [
     {
-      "firstName": "Georgedsa",
+      "firstName": "George",
       "lastName": "Rotaru",
       "email": "admin@gmail.com",
       "password": "12345",
@@ -72,27 +72,6 @@
       "email": "Julianne.OConner@kory.org",
       "password": "fas432ge1",
       "id": 3
-    },
-    {
-      "firstName": "George",
-      "lastName": "Rotaru",
-      "email": "georgerotaru1234@gmail.com",
-      "password": "1976tgdfg",
-      "id": 4
-    },
-    {
-      "firstName": "George",
-      "lastName": "Rotaru",
-      "email": "georgerotaru1234@gmail.com",
-      "password": "43251",
-      "id": 5
-    },
-    {
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": "",
-      "id": 6
     }
   ]
 }

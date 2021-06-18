@@ -20,8 +20,8 @@ const AddNewPost = ({ closeModal }: NewPostProps) => {
     e.preventDefault();
     mutate(newPost, {
       onSuccess: () => {
+        queryClient.refetchQueries(['posts'], { stale: true, exact: true });
         closeModal();
-        queryClient.refetchQueries('[posts]', { stale: true, exact: true });
       },
     });
   };

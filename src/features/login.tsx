@@ -4,8 +4,7 @@ import { UserType } from 'types/types';
 import { LoginType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
 import Loader from 'components/Loader';
-import Button from 'components/Button';
-
+import Alert from 'components/Alert';
 const Login = () => {
   const { data: users, status } = useUsers();
   const history = useHistory();
@@ -39,12 +38,13 @@ const Login = () => {
     <div>
       {status === 'error' && <p>Something is wrong!</p>}
       {status === 'loading' && <Loader />}
-      <form className="login-form" onSubmit={handleForm}>
-        {userData.error && <p className="danger">{userData.error}</p>}
+      <form className="default-form absolute-center" onSubmit={handleForm}>
+        <h5 className="form-title">Login</h5>
+        {userData.error && <Alert className="alert alert--danger">{userData.error}</Alert>}
         <div className="input-wrapper">
           <label>E-mail</label>
           <input
-            type="email"
+            type="text"
             value={userData.email}
             onChange={(e) =>
               setUserData((prevData: any) => ({

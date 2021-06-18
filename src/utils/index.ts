@@ -1,5 +1,3 @@
-import { RegisterType } from 'types/types';
-
 export const isDashboardRoute = (path: string) => {
   if (path === '/dashboard/posts') {
     return true;

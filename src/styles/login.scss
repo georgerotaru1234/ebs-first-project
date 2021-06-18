@@ -1,4 +1,4 @@
-.login-form {
+.default-form {
   padding: 40px 20px;
   border: 1px solid $secondaryColor;
   max-width: 350px;
@@ -16,4 +16,12 @@
       font-weight: 600;
     }
   }
+}
+.absolute-center {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }

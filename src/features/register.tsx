@@ -4,8 +4,9 @@ import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from 'api/endpoints';
-import { validatePassword } from 'utils';
 import Loader from 'components/Loader';
+import Alert from 'components/Alert';
+
 const Register = () => {
   let history = useHistory();
   const { mutate, isLoading, error } = useMutation(registerUser, {
@@ -21,15 +22,14 @@ const Register = () => {
     lastName: '',
     email: '',
     password: '',
-  });
-  const [errors, setErrors] = useState({
-    formErrors: '',
+    confirmPassword: '',
+    errors: [],
   });
 
   const handleForm = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    const validate = validatePassword();
-    if (!errors.formErrors.length) {
+    const validateForm = validator(registerData);
+    if (validateForm) {
       mutate(registerData);
       setRegisterData({
         firstName: '',
@@ -37,40 +37,75 @@ const Register = () => {
         email: '',
         password: '',
         confirmPassword: '',
+        errors: [],
       });
     }
   };
 
-  const validatePassword = () => {
-    if (registerData.password.length < 8) {
-      setErrors({
-        formErrors: [...errors.formErrors, 'Your password must be at least 8 characters'],
-      });
-      // errors.push('Your password must be at least 8 characters');
+  const validator = (value: RegisterType) => {
+    const invalid: string[] = [];
+    const allLetters = /^[a-zA-Z]+$/;
+    // const letter = /[a-zA-Z]/;
+    // const number = /[0-9]/;
+    const passRgx = /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*[^\w\s])\S{8,}$/;
+
+    if (!allLetters.test(value.firstName)) {
+      invalid.push('Provide a valid First Name');
     }
-    if (registerData.password.search(/[a-z]/i) < 0) {
-      setErrors({
-        formErrors: [...errors.formErrors, 'Your password must contain at least one letter.'],
-      });
+
+    if (!allLetters.test(value.lastName)) {
+      invalid.push('Provide a valid LastName');
     }
-    if (registerData.password.search(/[0-9]/) < 0) {
-      setErrors({
-        formErrors: [...errors.formErrors, 'Your password must contain at least one digit.'],
-      });
+
+    if (
+      value.email.indexOf('@') < 1 ||
+      value.email.lastIndexOf('.') < value.email.indexOf('@') + 2 ||
+      value.email.lastIndexOf('.') + 2 >= value.email.length
+    ) {
+      invalid.push('Provide a valid E-mail');
+    }
+
+    if (!passRgx.test(value.password)) {
+      console.log(passRgx.test(value.password));
+      invalid.push(
+        'Password must contain minimum eight characters, at least one letter, at least one special character and one number:',
+      );
+    }
+
+    if (registerData.password !== registerData.confirmPassword) {
+      invalid.push('Your password and confirm password are not equal');
+    }
+    if (invalid.length !== 0) {
+      setRegisterData((prevData) => ({
+        ...prevData,
+        errors: invalid,
+      }));
+      return false;
     }
     return true;
   };
 
   return (
     <div>
-      {/* {errors && <p className="danger">{errors}</p>} */}
-      <form className="login-form" onSubmit={handleForm}>
+      <form className="default-form absolute-center" onSubmit={handleForm}>
+        <h5 className="form-title">Register</h5>
         {isLoading && <Loader />}
         {error && <p>Something is wrong!!!</p>}
+        {console.log('reg', registerData)}
+        {registerData.errors.length !== 0
+          ? registerData.errors.map((error: string, index: number) => {
+              return (
+                <Alert key={index} className="alert alert--danger">
+                  {error}
+                </Alert>
+              );
+            })
+          : null}
         <div className="input-wrapper">
           <label>First Name</label>
           <input
             type="text"
+            name="firstName"
             value={registerData.firstName}
             onChange={(e) =>
               setRegisterData((prevData) => ({
@@ -84,6 +119,7 @@ const Register = () => {
           <label>Last Name</label>
           <input
             type="text"
+            name="lastName"
             value={registerData.lastName}
             onChange={(e) =>
               setRegisterData((prevData) => ({
@@ -96,7 +132,8 @@ const Register = () => {
         <div className="input-wrapper">
           <label>E-mail</label>
           <input
-            type="email"
+            type="text"
+            name="email"
             value={registerData.email}
             onChange={(e) =>
               setRegisterData((prevData) => ({
@@ -110,6 +147,7 @@ const Register = () => {
           <label>Password</label>
           <input
             type="password"
+            name="password"
             value={registerData.password}
             onChange={(e) =>
               setRegisterData((prevData) => ({
@@ -123,6 +161,7 @@ const Register = () => {
           <label>Confirm Password</label>
           <input
             type="password"
+            name="confirmPassword"
             value={registerData.confirmPassword}
             onChange={(e) =>
               setRegisterData((prevData) => ({
