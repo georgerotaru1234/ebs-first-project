@@ -29,11 +29,11 @@ const AddNewPost = ({ closeModal }: NewPostProps) => {
     <div>
       {isLoading && <Loader />}
       {error && <p>Error!</p>}
-      <form onSubmit={submitNewPost}>
-        <div className="input-wrapper">
-          <label className="input-label">Title:</label>
+      <form className="form" onSubmit={submitNewPost}>
+        <div className="form__group">
+          <label className="form__label">Title:</label>
           <textarea
-            className="textarea textarea--title"
+            className="form__textarea form__textarea--title"
             value={newPost.title}
             onChange={(e) =>
               setNewPost((prevData: any) => ({
@@ -43,10 +43,10 @@ const AddNewPost = ({ closeModal }: NewPostProps) => {
             }
           ></textarea>
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Description:</label>
+        <div className="form__group">
+          <label className="form__label">Description:</label>
           <textarea
-            className="textarea textarea--description"
+            className="form__textarea form__textarea--description"
             value={newPost.body}
             onChange={(e) =>
               setNewPost((prevData: any) => ({
@@ -56,7 +56,7 @@ const AddNewPost = ({ closeModal }: NewPostProps) => {
             }
           ></textarea>
         </div>
-        <button className="btn btn--secondary btn--small">Save</button>
+        <button className="btn btn--gray btn--small">Save</button>
       </form>
     </div>
   );

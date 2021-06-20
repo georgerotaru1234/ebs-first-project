@@ -10,7 +10,7 @@ export const getCurrentDate = () => {
   let month = newDate.getMonth() + 1;
   let year = newDate.getFullYear();
 
-  return `${date}.${month < 10 ? '0' + month : month}.${year}`;
+  return `${date}-${month < 10 ? '0' + month : month}-${year}`;
 };
 
 export const validateForm = (value: RegisterType) => {
@@ -37,7 +37,7 @@ export const validateForm = (value: RegisterType) => {
   if (!passRgx.test(value.password)) {
     console.log(passRgx.test(value.password));
     invalid.push(
-      'Password must contain minimum eight characters, at least one letter, at least one special character and one number:',
+      'Password must contain minimum eight characters, at least one letter, at least one capital letter, at least one special character and one number:',
     );
   }
 

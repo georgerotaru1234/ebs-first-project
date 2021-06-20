@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div>
-      {isLoggedIn() && <Redirect to="/dashboard" />}
+      {isLoggedIn() && <Redirect to="/dashboard/users" />}
       {status === 'error' && <p>Something is wrong!</p>}
       {status === 'loading' && <Loader />}
       <form className="default-form absolute-center" onSubmit={handleForm}>
@@ -77,7 +77,7 @@ const Login = () => {
             Create new account.
           </Link>
           <div className="submit-form">
-            <button className="btn btn--secondary btn--small">Submit</button>
+            <button className="btn btn--gray btn--small">Submit</button>
           </div>
         </div>
       </form>

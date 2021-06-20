@@ -50,7 +50,7 @@ const Register = () => {
 
   return (
     <div>
-      {isLoggedIn() && <Redirect to="/dashboard" />}
+      {isLoggedIn() && <Redirect to="/dashboard/users" />}
       <form className="default-form absolute-center" onSubmit={handleForm}>
         <h5 className="form-title">Register</h5>
         {isLoading && <Loader />}
@@ -144,7 +144,7 @@ const Register = () => {
           <Link className="link" to="/">
             Login
           </Link>
-          <button className="btn btn--secondary btn--small">Submit</button>
+          <button className="btn btn--gray btn--small">Submit</button>
         </div>
       </form>
     </div>

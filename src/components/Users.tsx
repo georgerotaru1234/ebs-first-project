@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
 import Loader from './Loader';
@@ -16,31 +17,34 @@ const Users = () => {
     setModalVisibility(false);
   };
   return (
-    <div className="users">
+    <div className="table">
       {isLoading && <Loader />}
       {error && <p>Error!!</p>}
-      <div className="user-card">
-        <span>ID</span>
-        <span>FIRST NAME</span>
-        <span>LAST NAME</span>
-        <span>EMAIL</span>
-        <span>PASSWORD</span>
-        <span>EDIT USER DATA</span>
+      <div className="user">
+        <span className="user__cell">ID</span>
+        <span className="user__cell">FIRST NAME</span>
+        <span className="user__cell">LAST NAME</span>
+        <span className="user__cell">EMAIL</span>
+        <span className="user__cell">PASSWORD</span>
+        <span className="user__cell">EDIT USER DATA</span>
       </div>
       {isSuccess &&
         users.map((element: UserType) => {
           const { id, firstName, lastName, email, password } = element;
           return (
-            <div className="user-card" key={id}>
-              <span>{id}</span>
-              <span>{firstName}</span>
-              <span>{lastName}</span>
-              <span>{email}</span>
-              <span>{password}</span>
-              <span className="users--edit-user">
-                <button className="btn btn--secondary btn--small" onClick={() => changeUserData(element)}>
+            <div className="user" key={id}>
+              <span className="user__cell">{id}</span>
+              <span className="user__cell">{firstName}</span>
+              <span className="user__cell">{lastName}</span>
+              <span className="user__cell">{email}</span>
+              <span className="user__cell">{password}</span>
+              <span className="user__cell user__cell--edit">
+                <button className="btn btn--gray btn--small" onClick={() => changeUserData(element)}>
                   Edit
                 </button>
+                <Link className="btn btn--gray btn--small" to={`/dashboard/users/${id}`}>
+                  View More
+                </Link>
               </span>
             </div>
           );

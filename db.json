@@ -2,52 +2,42 @@
   "posts": [
     {
       "userId": 1,
-      "id": 1,
-      "createdAt": "22.10.2017",
-      "title": "eum et est occaecati",
-      "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-    },
-    {
-      "userId": 1,
       "id": 2,
-      "createdAt": "22.10.2017",
-      "title": "nesciunt quas odio",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
-    },
-    {
-      "userId": 1,
-      "id": 3,
-      "createdAt": "22.10.2017",
-      "title": "dolorem eum magni eos aperiam quia",
-      "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      "createdAt": "2021-06-15",
+      "title": "nesciunt quas odiodsadsa",
+      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolodasdassr neque"
     },
     {
       "userId": 1,
       "id": 4,
-      "createdAt": "22.10.2017",
+      "createdAt": "2021-06-17",
       "title": "magnam facilis autem",
       "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
     },
     {
       "userId": 1,
       "id": 6,
-      "createdAt": "22.10.2017",
-      "title": "nesciunt quas odio",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
+      "createdAt": "2021-06-05",
+      "title": "nesciunt quas odiodasdasdas",
+      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed estasdasdas\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor nequedsadasdsad"
     },
     {
-      "userId": 1,
-      "id": 7,
-      "createdAt": "22.10.2017",
-      "title": "dolorem eum magni eos aperiam quia",
-      "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      "title": "DSAD",
+      "body": "ASDAS",
+      "createdAt": "20-06-2021",
+      "id": 7
     },
     {
-      "userId": 1,
-      "id": 8,
-      "createdAt": "22.10.2017",
-      "title": "magnam facilis autem",
-      "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
+      "title": "DEWASDSA FDF",
+      "body": "REWRC FDDSFFASFDS",
+      "createdAt": "20-06-2021",
+      "id": 8
+    },
+    {
+      "title": "REW",
+      "body": "REWRWE",
+      "createdAt": "20-06-2021",
+      "id": 9
     }
   ],
   "comments": [],
@@ -56,7 +46,7 @@
       "firstName": "George",
       "lastName": "Rotaru",
       "email": "admin@gmail.com",
-      "password": "12345",
+      "password": "1234",
       "id": 1
     },
     {
@@ -115,6 +105,122 @@
         "Password must contain minimum eight characters, at least one letter, at least one special character and one number:"
       ],
       "id": 7
+    },
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "admin1@gmail.com",
+      "password": "a",
+      "confirmPassword": "a",
+      "id": 8
+    },
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "a",
+      "password": "a",
+      "confirmPassword": "a",
+      "id": 9
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "confirmPassword": "",
+      "id": 10
+    },
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "a",
+      "password": "a",
+      "confirmPassword": "a",
+      "id": 11
+    },
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "admin1@gmail.com",
+      "password": "a",
+      "confirmPassword": "a",
+      "id": 12
+    },
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "a",
+      "password": "a",
+      "confirmPassword": "a",
+      "id": 13
+    },
+    {
+      "firstName": "a",
+      "lastName": "a",
+      "email": "a",
+      "password": "a",
+      "confirmPassword": "a",
+      "id": 14
+    },
+    {
+      "firstName": "dasdas",
+      "lastName": "dasdas",
+      "email": "dasdasd",
+      "password": "asdas",
+      "confirmPassword": "das",
+      "errors": [],
+      "id": 15
+    },
+    {
+      "firstName": "dasdasds",
+      "lastName": "adas",
+      "email": "dsa",
+      "password": "dsa",
+      "confirmPassword": "asda",
+      "errors": [],
+      "id": 16
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "confirmPassword": "",
+      "errors": [],
+      "id": 17
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "lala@mail.ru",
+      "password": "1234As!1",
+      "confirmPassword": "1234As!1",
+      "errors": [
+        "Password must contain minimum eight characters, at least one letter, at least one special character and one number:"
+      ],
+      "id": 18
+    },
+    {
+      "firstName": "das",
+      "lastName": "das",
+      "email": "georgerotaru1234@gmail.com",
+      "password": "22061993As!",
+      "confirmPassword": "22061993As!",
+      "errors": [
+        "Your password and confirm password are not equal"
+      ],
+      "id": 19
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "george-rotaru@mail.ru",
+      "password": "22061993As!",
+      "confirmPassword": "22061993As!",
+      "errors": [
+        "Your password and confirm password are not equal"
+      ],
+      "id": 20
     }
   ]
 }

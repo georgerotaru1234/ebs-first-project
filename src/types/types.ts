@@ -20,9 +20,10 @@ export interface PostType {
 }
 
 export interface UserType {
-  id: number;
+  id?: number;
   firstName: string;
   lastName: string;
   password: string;
   email: string;
+  confirmPassword?: string;
 }

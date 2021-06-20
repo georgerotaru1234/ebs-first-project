@@ -29,11 +29,11 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
     <div>
       {isLoading && <Loader />}
       {error && <p>Error!</p>}
-      <form onSubmit={submitPost}>
-        <div className="input-wrapper">
-          <label className="input-label">Title:</label>
+      <form className="form" onSubmit={submitPost}>
+        <div className="form__group">
+          <label className="form__label">Title:</label>
           <textarea
-            className="textarea textarea--title"
+            className="form__textarea form__textarea--title"
             defaultValue={newPost.title}
             onChange={(e) =>
               setNewPost((prevData: any) => ({
@@ -43,10 +43,10 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
             }
           ></textarea>
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Description:</label>
+        <div className="form__group">
+          <label className="form__label">Description:</label>
           <textarea
-            className="textarea textarea--description"
+            className="form__textarea form__textarea--description"
             defaultValue={newPost.body}
             onChange={(e) =>
               setNewPost((prevData: any) => ({
@@ -56,10 +56,11 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
             }
           ></textarea>
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Date:</label>
+        <div className="form__group">
+          <label className="form__label">Date:</label>
           <input
-            className="input-field"
+            type="Date"
+            className="form__input"
             defaultValue={newPost.createdAt}
             onChange={(e) =>
               setNewPost((prevData: any) => ({
@@ -69,7 +70,7 @@ const EditPostForm = ({ post, closeModal }: PostProps) => {
             }
           />
         </div>
-        <button className="btn btn--secondary btn--small">Save</button>
+        <button className="btn btn--gray btn--small">Save</button>
       </form>
     </div>
   );

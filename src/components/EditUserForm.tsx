@@ -6,7 +6,7 @@ import Loader from './Loader';
 
 interface ModalProps {
   item: UserType;
-  closeModal: () => void;
+  closeModal?: () => void;
 }
 const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
   const queryClient = useQueryClient();
@@ -24,7 +24,7 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
     mutate(userDetails, {
       onSuccess: () => {
         queryClient.refetchQueries(['users'], { stale: true, exact: true });
-        closeModal();
+        closeModal !== undefined && closeModal();
       },
     });
   };
@@ -33,11 +33,11 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
     <div className="content">
       {isLoading && <Loader />}
       {error && <p>Error!!</p>}
-      <form onSubmit={editForm}>
-        <div className="input-wrapper">
-          <label className="input-label">ID</label>
+      <form className="form" onSubmit={editForm}>
+        <div className="form__group">
+          <label className="form__label">ID</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             defaultValue={userDetails.id}
             onChange={(e) =>
@@ -48,10 +48,10 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">First Name</label>
+        <div className="form__group">
+          <label className="form__label">First Name</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             defaultValue={userDetails.firstName}
             onChange={(e) =>
@@ -62,10 +62,10 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Last Name</label>
+        <div className="form__group">
+          <label className="form__label">Last Name</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             defaultValue={userDetails.lastName}
             onChange={(e) =>
@@ -76,10 +76,10 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">E-mail</label>
+        <div className="form__group">
+          <label className="form__label">E-mail</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             defaultValue={userDetails.email}
             onChange={(e) =>
@@ -90,10 +90,10 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Password</label>
+        <div className="form__group">
+          <label className="form__label">Password</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             defaultValue={userDetails.password}
             onChange={(e) =>
@@ -104,7 +104,7 @@ const EditUserForm: React.FC<ModalProps> = ({ item, closeModal }) => {
             }
           />
         </div>
-        <button className="btn btn--secondary btn--small">SAVE</button>
+        <button className="btn btn--gray btn--small">SAVE</button>
       </form>
     </div>
   );
