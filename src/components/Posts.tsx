@@ -36,9 +36,9 @@ const Posts = () => {
     setFormVisibility(false);
   };
   return (
-    <div className="posts-wrapper">
-      <div className="posts-header">
-        <button className="btn btn--secondary btn--small btn--icon" onClick={() => addNewPost()}>
+    <div className="posts">
+      <div className="posts__header">
+        <button className="btn btn--gray btn--small btn--icon" onClick={() => addNewPost()}>
           <PlusIcon />
           <span>NEW POST</span>
         </button>
@@ -49,21 +49,21 @@ const Posts = () => {
         postData.map((item: PostType) => {
           return (
             <div className="card" key={item.id}>
-              <div className="card--content--wrapper">
-                <div className="card--post--content">
-                  <h5 className="card--title">{item.title}</h5>
-                  <p className="card--description">{item.body}</p>
+              <div className="card__wrapper">
+                <div className="card__content">
+                  <h5 className="card__title">{item.title}</h5>
+                  <p className="card__description">{item.body}</p>
                 </div>
-                <div className="card--post--footer">
-                  <div className="card--date">
+                <div className="card__footer">
+                  <div className="card__date">
                     <span>Date: </span>
                     <span>{item.createdAt}</span>
                   </div>
-                  <button className="btn btn--secondary btn--small btn--icon" onClick={() => changePost(item)}>
+                  <button className="btn btn--gray btn--small btn--icon" onClick={() => changePost(item)}>
                     <EditIcon />
                     Edit Post
                   </button>
-                  <button className="btn btn--secondary btn--small btn--icon" onClick={() => removePost(item.id!)}>
+                  <button className="btn btn--gray btn--small btn--icon" onClick={() => removePost(item.id!)}>
                     <TrashIcon />
                     Remove
                   </button>

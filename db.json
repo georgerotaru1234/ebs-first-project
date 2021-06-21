@@ -2,76 +2,77 @@
   "posts": [
     {
       "userId": 1,
-      "id": 1,
-      "createdAt": "22.10.2017",
-      "title": "eum et est occaecati",
-      "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-    },
-    {
-      "userId": 1,
       "id": 2,
-      "createdAt": "22.10.2017",
-      "title": "nesciunt quas odio",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
-    },
-    {
-      "userId": 1,
-      "id": 3,
-      "createdAt": "22.10.2017",
-      "title": "dolorem eum magni eos aperiam quia",
-      "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      "createdAt": "2021-06-18",
+      "title": "nesciunt quas odiodsadsa",
+      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolodasdassr neque"
     },
     {
       "userId": 1,
       "id": 4,
-      "createdAt": "22.10.2017",
+      "createdAt": "2021-06-17",
       "title": "magnam facilis autem",
       "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
     },
     {
       "userId": 1,
       "id": 6,
-      "createdAt": "22.10.2017",
-      "title": "nesciunt quas odio",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque"
+      "createdAt": "2021-06-05",
+      "title": "nesciunt quas odiodasdasdas",
+      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed estasdasdas\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor nequedsadasdsad"
     },
     {
-      "userId": 1,
-      "id": 7,
-      "createdAt": "22.10.2017",
-      "title": "dolorem eum magni eos aperiam quia",
-      "body": "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      "title": "DSAD",
+      "body": "ASDAS",
+      "createdAt": "20-06-2021",
+      "id": 7
     },
     {
-      "userId": 1,
-      "id": 8,
-      "createdAt": "22.10.2017",
-      "title": "magnam facilis autem",
-      "body": "dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas"
+      "title": "REW",
+      "body": "REWRWE",
+      "createdAt": "20-06-2021",
+      "id": 9
     }
   ],
   "comments": [],
   "profile": [
     {
-      "firstName": "George",
-      "lastName": "Rotaru",
+      "firstName": "Georgea",
+      "lastName": "Rotarua",
       "email": "admin@gmail.com",
-      "password": "12345",
-      "id": 1
-    },
-    {
-      "firstName": "Clementine",
-      "lastName": "Bauch2",
-      "email": "nathan@yesenia.net",
-      "password": "1dvdsg3244gdsg",
-      "id": 2
+      "password": "12345As!",
+      "id": 1,
+      "confirmPassword": "22061993As!"
     },
     {
       "firstName": "Patricia",
       "lastName": "Lebsack",
       "email": "Julianne.OConner@kory.org",
       "password": "fas432ge1",
-      "id": 3
+      "id": 2
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "georgerotaru1234@gmail.com",
+      "password": "22061993As!!",
+      "id": 4,
+      "confirmPassword": "22061993As!!"
+    },
+    {
+      "firstName": "jhony",
+      "lastName": "jhony",
+      "email": "jhony@gmail.com",
+      "password": "12345As!",
+      "id": 6
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "admin1@gmail.com",
+      "password": "123456As!",
+      "confirmPassword": "123456As!",
+      "id": 7
     }
   ]
 }
