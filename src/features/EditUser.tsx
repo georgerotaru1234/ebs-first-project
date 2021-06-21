@@ -26,6 +26,7 @@ const EditUserForm = () => {
         lastName: prevUser.lastName,
         email: prevUser.email,
         password: prevUser.password,
+        confirmPassword: prevUser.password,
       });
     }
   }, [prevUser]);
