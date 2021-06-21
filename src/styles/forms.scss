@@ -8,6 +8,18 @@
     padding: 0 0 5px;
     margin: 0 0 10px;
   }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__link {
+    color: $primaryColor;
+    font-size: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
   &__group {
     margin: 0 0 10px;
   }
@@ -56,5 +68,10 @@
       max-height: 220px;
       min-height: 220px;
     }
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

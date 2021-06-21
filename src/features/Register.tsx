@@ -11,11 +11,10 @@ import Alert from 'components/Alert';
 const Register = () => {
   let history = useHistory();
   const { mutate, isLoading, error } = useMutation(registerUser, {
-    onSuccess: (res) => {
-      if (res.id) {
-        localStorage.setItem('key', res.id);
-        history.push('/dashboard/posts');
-      }
+    onSuccess: () => {
+      setTimeout(() => {
+        history.push('/');
+      }, 2000);
     },
   });
   const [registerData, setRegisterData] = useState<RegisterType>({
@@ -24,6 +23,11 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
+  });
+  const [alert, setAlert] = useState({
+    isVisible: false,
+  });
+  const [errorArray, setErrorArray] = useState<{ errors: string[] }>({
     errors: [],
   });
 
@@ -31,33 +35,37 @@ const Register = () => {
     e.preventDefault();
     const formValidation = validateForm(registerData);
     if (formValidation === true) {
-      mutate(registerData);
+      setErrorArray({ errors: [] });
+      mutate({
+        firstName: registerData.firstName,
+        lastName: registerData.lastName,
+        email: registerData.email,
+        password: registerData.password,
+      });
       setRegisterData({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        errors: [],
       });
+      setAlert({ isVisible: true });
     } else {
-      setRegisterData((prevData) => ({
-        ...prevData,
-        errors: formValidation,
-      }));
+      setErrorArray({ errors: formValidation });
     }
   };
 
   return (
-    <div>
-      {isLoggedIn() && <Redirect to="/dashboard/users" />}
-      <form className="default-form absolute-center" onSubmit={handleForm}>
-        <h5 className="form-title">Register</h5>
+    <div className="register vertical--center">
+      {isLoggedIn() && <Redirect to="/" />}
+      <form className="form" onSubmit={handleForm}>
+        <h5 className="form__title">Register</h5>
         {isLoading && <Loader />}
-        {error && <p>Something is wrong!!!</p>}
-        {console.log('reg', registerData)}
-        {registerData.errors.length !== 0
-          ? registerData.errors.map((error: string, index: number) => {
+        {error && <p>Error!</p>}
+        {alert.isVisible ? (
+          <Alert className="alert alert--success">Your account was created successfully!</Alert>
+        ) : null}
+        {errorArray.errors.length !== 0
+          ? errorArray.errors.map((error: string, index: number) => {
               return (
                 <Alert key={index} className="alert alert--danger">
                   {error}
@@ -65,10 +73,11 @@ const Register = () => {
               );
             })
           : null}
-        <div className="input-wrapper">
-          <label className="input-label">First Name</label>
+
+        <div className="form__group">
+          <label className="form__label">First Name</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             name="firstName"
             value={registerData.firstName}
@@ -80,10 +89,10 @@ const Register = () => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Last Name</label>
+        <div className="form__group">
+          <label className="form__label">Last Name</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             name="lastName"
             value={registerData.lastName}
@@ -95,10 +104,10 @@ const Register = () => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">E-mail</label>
+        <div className="form__group">
+          <label className="form__label">E-mail</label>
           <input
-            className="input-field"
+            className="form__input"
             type="text"
             name="email"
             value={registerData.email}
@@ -110,10 +119,10 @@ const Register = () => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Password</label>
+        <div className="form__group">
+          <label className="form__label">Password</label>
           <input
-            className="input-field"
+            className="form__input"
             type="password"
             name="password"
             value={registerData.password}
@@ -125,10 +134,10 @@ const Register = () => {
             }
           />
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Confirm Password</label>
+        <div className="form__group">
+          <label className="form__label">Confirm Password</label>
           <input
-            className="input-field"
+            className="form__input"
             type="password"
             name="confirmPassword"
             value={registerData.confirmPassword}
@@ -140,11 +149,11 @@ const Register = () => {
             }
           />
         </div>
-        <div className="default--form--footer">
-          <Link className="link" to="/">
-            Login
+        <div className="form__footer">
+          <Link className="form__link" to="/">
+            I already have and account.
           </Link>
-          <button className="btn btn--gray btn--small">Submit</button>
+          <button className="btn btn--gray btn--small">Register</button>
         </div>
       </form>
     </div>

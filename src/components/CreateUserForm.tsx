@@ -11,37 +11,32 @@ const CreateUserForm = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    errors: [],
   });
   const [alert, setAlert] = useState({
     isVisible: false,
+  });
+  const [errorArray, setErrorArray] = useState<{ errors: string[] }>({
+    errors: [],
   });
   const { mutate } = useMutation('user', createUser);
   const handleNewUserForm = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     const formValidate = validateForm(user);
-    console.log('dsadas', formValidate);
     if (formValidate === true) {
       mutate(user);
-      setUser((prevData) => ({
-        ...prevData,
+      setUser({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
-        errors: [],
-      }));
+      });
       setAlert({ isVisible: true });
-      setTimeout(() => {
-        setAlert({ isVisible: false });
-      }, 2000);
     } else {
       console.log(formValidate, 'form validation');
-      setUser((prevData) => ({
-        ...prevData,
+      setErrorArray({
         errors: formValidate,
-      }));
+      });
     }
   };
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,14 +49,15 @@ const CreateUserForm = () => {
   };
   return (
     <div className="new_user_wrapper">
-      {user.errors.length > 0 &&
-        user.errors.map((error, index) => {
-          return (
-            <Alert className="alert alert--danger" key={index}>
-              {error}
-            </Alert>
-          );
-        })}
+      {errorArray.errors.length !== 0
+        ? errorArray.errors.map((error, index) => {
+            return (
+              <Alert className="alert alert--danger" key={index}>
+                {error}
+              </Alert>
+            );
+          })
+        : null}
       {alert.isVisible && <Alert className="alert alert--success">The user was successfully created!</Alert>}
       <form className="form form--small" onSubmit={handleNewUserForm}>
         <div className="form__group">

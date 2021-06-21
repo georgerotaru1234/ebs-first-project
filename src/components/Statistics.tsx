@@ -24,7 +24,7 @@ const Statistics = () => {
           </span>
           <div className="list__item__info">
             <span className="list__item__count">{postStatus === 'success' && postData.length}</span>
-            <p className="list__item__name">User</p>
+            <p className="list__item__name">Posts</p>
           </div>
         </li>
       </ul>

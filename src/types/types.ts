@@ -1,29 +1,19 @@
 export interface RegisterType {
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  errors: string[];
+  confirmPassword?: string;
 }
 
 export interface LoginType {
   email: string;
   password: string;
-  error: string;
 }
 export interface PostType {
   id?: number;
   createdAt: string;
   title: string;
   body: string;
-}
-
-export interface UserType {
-  id?: number;
-  firstName: string;
-  lastName: string;
-  password: string;
-  email: string;
-  confirmPassword?: string;
 }
