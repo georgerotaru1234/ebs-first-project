@@ -65,6 +65,14 @@
       "email": "jhony@gmail.com",
       "password": "12345As!",
       "id": 6
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "admin1@gmail.com",
+      "password": "123456As!",
+      "confirmPassword": "123456As!",
+      "id": 7
     }
   ]
 }

@@ -28,9 +28,7 @@ const Login = () => {
           }
           localStorage.setItem(element, item[element as keyof RegisterType] + '');
         }
-        setTimeout(() => {
-          history.push('/dashboard/users');
-        }, 3000);
+        history.push('/dashboard/users');
       }
       setError({ errors: 'Your E-mail or password are incorrect!' });
       return false;
@@ -38,7 +36,7 @@ const Login = () => {
   };
   return (
     <div className="login vertical--center">
-      {isLoggedIn() && error.errors ? <Redirect to="/dashboard/users" /> : null}
+      {isLoggedIn() ? <Redirect to="/dashboard/users" /> : null}
       {status === 'error' && <p>Something is wrong!</p>}
       {status === 'loading' && <Loader />}
       <form className="form align--vertical-center" onSubmit={handleForm}>
