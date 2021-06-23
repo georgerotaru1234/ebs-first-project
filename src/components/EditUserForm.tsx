@@ -2,152 +2,99 @@ import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { updateUser } from 'api/endpoints';
 import { RegisterType } from 'types/types';
-import { validateForm } from 'utils';
-import Loader from './Loader';
-import Alert from './Alert';
+import { Form, Input, Button, Container, Row, Col, Alert, Icon as SVGIcon } from 'ebs-design';
 
 interface ModalProps {
   item: RegisterType;
   closeModal?: () => void;
 }
+
 const EditUserForm: React.FC<ModalProps> = ({ item }) => {
   const queryClient = useQueryClient();
-  const [userDetails, setUserDetails] = useState<RegisterType>({
-    id: item.id,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    password: item.password,
-    email: item.email,
-    confirmPassword: item.password,
-  });
-  console.log(userDetails, 'userDetails');
-  const [errorArray, setErrorArray] = useState<{ errors: string[] }>({
-    errors: [],
-  });
-  const [alert, setAlert] = useState({
-    isVisible: false,
-  });
+  const [alert, setAlert] = useState(false);
   const { mutate, isLoading, error } = useMutation(updateUser);
 
-  const editForm = (e: React.FormEvent<EventTarget>) => {
-    e.preventDefault();
-    const formValidation = validateForm(userDetails);
-    if (formValidation === true) {
-      setErrorArray({ errors: [] });
-      mutate(userDetails, {
+  const editForm = (data: RegisterType) => {
+    mutate(
+      {
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        password: data.password,
+        email: data.email,
+      },
+      {
         onSuccess: () => {
           queryClient.refetchQueries(['users'], { stale: true, exact: true });
+          setAlert(true);
         },
-      });
-      setAlert({ isVisible: true });
-    } else {
-      setErrorArray({ errors: formValidation });
-    }
+      },
+    );
   };
 
   return (
-    <div className="content">
-      {isLoading && <Loader />}
-      {error && <p>Error!!</p>}
-      {errorArray.errors.length
-        ? errorArray.errors.map((element, index) => {
-            return (
-              <Alert className="alert alert--danger" key={index}>
-                {element}
-              </Alert>
-            );
-          })
-        : null}
-      {alert.isVisible && <Alert className="alert alert--success">Your user data was changed successfully</Alert>}
-      <form className="form" onSubmit={editForm}>
-        <div className="form__group">
-          <label className="form__label">ID</label>
-          <input
-            className="form__input"
-            type="text"
-            disabled
-            value={userDetails.id}
-            onChange={(e) =>
-              setUserDetails((prevData: any) => ({
-                ...prevData,
-                id: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">First Name</label>
-          <input
-            className="form__input"
-            type="text"
-            value={userDetails.firstName}
-            onChange={(e) =>
-              setUserDetails((prevData: any) => ({
-                ...prevData,
-                firstName: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Last Name</label>
-          <input
-            className="form__input"
-            type="text"
-            value={userDetails.lastName}
-            onChange={(e) =>
-              setUserDetails((prevData: any) => ({
-                ...prevData,
-                lastName: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">E-mail</label>
-          <input
-            className="form__input"
-            type="text"
-            value={userDetails.email}
-            onChange={(e) =>
-              setUserDetails((prevData: any) => ({
-                ...prevData,
-                email: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Password</label>
-          <input
-            className="form__input"
-            type="password"
-            value={userDetails.password}
-            onChange={(e) =>
-              setUserDetails((prevData: any) => ({
-                ...prevData,
-                password: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Confirm Password</label>
-          <input
-            className="form__input"
-            type="password"
-            value={userDetails.confirmPassword}
-            onChange={(e) =>
-              setUserDetails((prevData: any) => ({
-                ...prevData,
-                confirmPassword: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <button className="btn btn--gray btn--small">SAVE</button>
-      </form>
-    </div>
+    <Container>
+      <Row>
+        <Col size={12}>
+          {error && <p>Error!!</p>}
+          {alert && <Alert icon message="The user data was changed successfully!" />}
+          <Form initialValues={item} onFinish={editForm}>
+            <Form.Field name="id" label="Id">
+              <Input disabled />
+            </Form.Field>
+
+            <Form.Field name="firstName" label="First Name" rules={[{ required: true }, { min: 3 }]}>
+              <Input />
+            </Form.Field>
+
+            <Form.Field name="lastName" label="Last Name" rules={[{ required: true }, { min: 3 }]}>
+              <Input />
+            </Form.Field>
+            <Form.Field name="email" label="E-mail" rules={[{ required: true }]}>
+              <Input />
+            </Form.Field>
+
+            <Form.Field
+              name="password"
+              label="Password"
+              rules={[
+                { required: true },
+                {
+                  pattern: /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*[^\w\s])\S{8,}$/,
+                  message:
+                    'Password must contain minimum eight characters, at least one letter, at least one capital letter, at least one special character and one number!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Field>
+
+            <Form.Field
+              name="confirmPassword"
+              label="Confirm Password"
+              rules={[
+                { required: true },
+                ({ getFieldValue }) => ({
+                  async validator(_, value) {
+                    const password = getFieldValue('password');
+                    if (password && password !== value) {
+                      return Promise.reject("Confirm Password and Password are'nt equal! ");
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
+            >
+              <Input />
+            </Form.Field>
+
+            <Button className="mr-15" submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading && true}>
+              save
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

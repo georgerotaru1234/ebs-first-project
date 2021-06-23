@@ -1,77 +1,48 @@
 import React, { useState } from 'react';
+import { Form, Textarea, Button, DatePicker, Alert, Icon as SVGIcon } from 'ebs-design';
 import { useMutation, useQueryClient } from 'react-query';
 import { updatePost } from 'api/endpoints';
 import { PostType } from 'types/types';
-import Loader from 'components/Loader';
 interface PostProps {
-  closeModal: () => void;
   post: PostType;
 }
-const EditPostForm = ({ post, closeModal }: PostProps) => {
+const EditPostForm = ({ post }: PostProps) => {
   const queryClient = useQueryClient();
+  const [alert, setAlert] = useState(false);
+
   const { mutate, isLoading, error } = useMutation(updatePost);
-  const [newPost, setNewPost] = useState<PostType>({
-    id: post.id,
-    title: post.title,
-    body: post.body,
-    createdAt: post.createdAt,
-  });
-  const submitPost = (e: React.FormEvent<EventTarget>) => {
-    e.preventDefault();
-    mutate(newPost, {
-      onSuccess: () => {
-        queryClient.refetchQueries(['posts'], { stale: true, exact: true });
-        closeModal();
+
+  const submitPost = (newPost: PostType) => {
+    mutate(
+      { id: post.id, ...newPost },
+      {
+        onSuccess: () => {
+          queryClient.refetchQueries(['posts'], { stale: true, exact: true });
+          setAlert(true);
+        },
       },
-    });
+    );
+    setAlert(false);
   };
+
   return (
     <div>
-      {isLoading && <Loader />}
       {error && <p>Error!</p>}
-      <form className="form" onSubmit={submitPost}>
-        <div className="form__group">
-          <label className="form__label">Title:</label>
-          <textarea
-            className="form__textarea form__textarea--title"
-            defaultValue={newPost.title}
-            onChange={(e) =>
-              setNewPost((prevData: any) => ({
-                ...prevData,
-                title: e.target.value,
-              }))
-            }
-          ></textarea>
-        </div>
-        <div className="form__group">
-          <label className="form__label">Description:</label>
-          <textarea
-            className="form__textarea form__textarea--description"
-            defaultValue={newPost.body}
-            onChange={(e) =>
-              setNewPost((prevData: any) => ({
-                ...prevData,
-                body: e.target.value,
-              }))
-            }
-          ></textarea>
-        </div>
-        <div className="form__group">
-          <label className="form__label">Date:</label>
-          <input
-            type="Date"
-            className="form__input"
-            defaultValue={newPost.createdAt}
-            onChange={(e) =>
-              setNewPost((prevData: any) => ({
-                ...prevData,
-                createdAt: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <button className="btn btn--gray btn--small">Save</button>
-      </form>
+      {alert && <Alert icon message="The post was successfully changed!" />}
+      <Form initialValues={post} onFinish={submitPost}>
+        <Form.Field name="title" label="Post Title:" extra="This field is required">
+          <Textarea />
+        </Form.Field>
+        <Form.Field name="body" label="Post Description:" extra="This field is required">
+          <Textarea />
+        </Form.Field>
+        <Form.Field name="createdAt" label="Date:" rules={[{ required: true }]}>
+          <DatePicker placeholderText="Birthday" isClearable dateFormat="dd-MM-yyyy" />
+        </Form.Field>
+        <Button className="mr-15" submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading && true}>
+          save
+        </Button>
+      </Form>
     </div>
   );
 };

@@ -1,54 +1,37 @@
 import { Link, useHistory } from 'react-router-dom';
-import { SocialIcon, TaskIcon, AddUserIcon } from 'icons';
+import { Sidebar, Icon } from 'ebs-design';
+
 const Navigation = () => {
   const history = useHistory();
+  const { pathname } = history.location;
   const handleLogOut = () => {
     localStorage.clear();
     history.push('/');
   };
 
-  const userName = `${localStorage.getItem('firstName')} ${localStorage.getItem('lastName')}`;
-  const email = localStorage.getItem('email');
   return (
-    <nav className="menu">
-      <div className="menu__user">
-        <h5 className="menu__user__name">{userName}</h5>
-        <span className="menu__user__email">{email}</span>
-        <button className="btn btn--gray btn--small" onClick={() => handleLogOut()}>
-          SIGN OUT
-        </button>
-      </div>
-      <ul className="menu__navigation">
-        <li className={`menu__list ${history.location.pathname === '/dashboard/users' ? 'menu__list--active' : ''}`}>
-          <Link className="menu__link" to="/dashboard/users">
-            <span className="menu__navigation__icon">
-              <SocialIcon />
-            </span>
-            Users
-          </Link>
-        </li>
-        <li className={`menu__list ${history.location.pathname === '/dashboard/posts' ? 'menu__list--active' : ''}`}>
-          <Link className="menu__link" to="/dashboard/posts">
-            <span className="menu__navigation__icon">
-              <TaskIcon />
-            </span>
-            Posts
-          </Link>
-        </li>
-        <li
-          className={`menu__list ${
-            history.location.pathname === '/dashboard/users/create' ? 'menu__list--active' : ''
-          }`}
-        >
-          <Link className="menu__link" to="/dashboard/users/create">
-            <span className="menu__navigation__icon">
-              <AddUserIcon />
-            </span>
-            Create New User
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <Sidebar>
+      <Sidebar.TopMenu>
+        <Link to="/dashboard/users">
+          <Sidebar.Item prefix={<Icon type="users" />} text="Users" active={pathname === '/dashboard/users' && true} />
+        </Link>
+        <Link to="/dashboard/posts">
+          <Sidebar.Item
+            prefix={<Icon type="message" />}
+            text="Posts"
+            active={pathname === '/dashboard/posts' && true}
+          />
+        </Link>
+        <Link to="/dashboard/users/create">
+          <Sidebar.Item
+            prefix={<Icon type="create" />}
+            text="Create User"
+            active={pathname === '/dashboard/users/create' && true}
+          />
+        </Link>
+        <Sidebar.Item prefix={<Icon type="lock" />} text="Log out" onClick={handleLogOut} />
+      </Sidebar.TopMenu>
+    </Sidebar>
   );
 };
 

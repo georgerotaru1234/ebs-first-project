@@ -1,83 +1,65 @@
 import React, { useState } from 'react';
-import { Link, useHistory, Redirect } from 'react-router-dom';
-import { RegisterType, LoginType } from 'types/types';
+import { useHistory, Redirect, Link } from 'react-router-dom';
+import { Alert, Form, Input, Container, Space, Button, Icon as SVGIcon } from 'ebs-design';
+import { RegisterType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
 import { isLoggedIn } from 'utils';
-import Loader from 'components/Loader';
-import Alert from 'components/Alert';
 
 const Login = () => {
   const { data: users, status } = useUsers();
   const history = useHistory();
-  const [userData, setUserData] = React.useState<LoginType>({
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState({
-    errors: '',
-  });
+  const [error, setError] = useState(false);
 
-  const handleForm = (e: React.FormEvent<EventTarget>) => {
-    e.preventDefault();
-    users.filter((item: RegisterType) => {
-      if (item.email === userData.email && item.password === userData.password) {
-        setError({ errors: '' });
-        for (let element in item) {
-          if (element === 'password') {
-            continue;
-          }
-          localStorage.setItem(element, item[element as keyof RegisterType] + '');
-        }
-        history.push('/dashboard/users');
-      }
-      setError({ errors: 'Your E-mail or password are incorrect!' });
-      return false;
-    });
-  };
   return (
-    <div className="login vertical--center">
-      {isLoggedIn() ? <Redirect to="/dashboard/users" /> : null}
-      {status === 'error' && <p>Something is wrong!</p>}
-      {status === 'loading' && <Loader />}
-      <form className="form align--vertical-center" onSubmit={handleForm}>
-        <h5 className="form__title">Login</h5>
-        {error.errors ? <Alert className="alert alert--danger">{error.errors}</Alert> : null}
-        <div className="form__group">
-          <label className="form__label">E-mail</label>
-          <input
-            className="form__input"
-            type="text"
-            value={userData.email}
-            onChange={(e) =>
-              setUserData((prevData: any) => ({
-                ...prevData,
-                email: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Password</label>
-          <input
-            className="form__input"
-            type="password"
-            value={userData.password}
-            onChange={(e) =>
-              setUserData((prevData: any) => ({
-                ...prevData,
-                password: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__footer">
-          <Link className="form__link" to="/register">
-            Create new account.
-          </Link>
-          <button className="btn btn--gray btn--small">Submit</button>
-        </div>
-      </form>
-    </div>
+    <Container>
+      <Space align="center" justify="center" direction="vertical" className="mt-20">
+        {isLoggedIn() ? <Redirect to="/dashboard/users" /> : null}
+        {status === 'error' && <p>Something is wrong!</p>}
+        <Form
+          onFinish={(values) => {
+            users.filter((item: RegisterType) => {
+              if (item.email === values.email && item.password === values.password) {
+                for (let element in item) {
+                  if (element === 'password') {
+                    continue;
+                  }
+                  localStorage.setItem(element, item[element as keyof RegisterType] + '');
+                }
+                setError(false);
+                history.push('/dashboard/users');
+              }
+              setError(true);
+              return false;
+            });
+          }}
+          onFinishFailed={({ values, errorFields, outOfDate }) => {
+            console.log('dasdasdas', { values, errorFields, outOfDate });
+          }}
+        >
+          {error && <Alert icon message="Your E-mail or password are incorect!" type="error" />}
+          <Form.Field name="email" label="email" extra="This field is required" rules={[{ required: true }]}>
+            <Input />
+          </Form.Field>
+
+          <Form.Field name="password" label="password" extra="This field is required" rules={[{ required: true }]}>
+            <Input type="password" />
+          </Form.Field>
+          <Space align="center" justify="space-between">
+            <Link to="/register">
+              <Button>GO TO REGISTER PAGE</Button>
+            </Link>
+            <Button
+              type="primary"
+              submit={true}
+              prefix={<SVGIcon type="refresh" />}
+              loading={status === 'loading' && true}
+            >
+              Login
+            </Button>
+          </Space>
+        </Form>
+      </Space>
+    </Container>
   );
 };
 

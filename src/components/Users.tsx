@@ -1,75 +1,99 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
+import { Table, Button, Container, Row, Col, Loader } from 'ebs-design';
 import { RegisterType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
 import { deleteUser } from 'api/endpoints';
-import Loader from './Loader';
-import Modal from './Modal';
+import ModalComp from './Modal';
+import CreateUserForm from './CreateUserForm';
 import EditUserForm from './EditUserForm';
+
 const Users = () => {
   const queryClient = useQueryClient();
+  const { data: users, isLoading, error, isSuccess } = useUsers();
   const [isModalVisible, setModalVisibility] = useState(false);
+  const [isFormVisible, setFormVisibility] = useState(false);
   const [item, setItem] = useState<RegisterType>();
+
   const { mutate } = useMutation(deleteUser, {
     onSuccess: () => {
       queryClient.refetchQueries(['users'], { stale: true, exact: true });
     },
   });
-  const { data: users, isLoading, error, isSuccess } = useUsers();
-  const changeUserData = (item: RegisterType) => {
+
+  const addNewUser = () => {
     setModalVisibility(true);
-    setItem(item);
+    setFormVisibility(false);
   };
+  const changeUserData = (item: RegisterType) => {
+    setItem(item);
+    setFormVisibility(true);
+    setModalVisibility(true);
+  };
+
   const closeModal = () => {
     setModalVisibility(false);
+    setFormVisibility(false);
   };
-  const removeUser = (id: string | undefined) => {
+
+  const removeUser = (id: string) => {
     if (id) {
       mutate(id);
     }
   };
+
+  const columns = [
+    { title: 'Id', dataIndex: 'id' },
+    { title: 'First Name', dataIndex: 'firstName' },
+    { title: 'Last Name', dataIndex: 'lastName' },
+    { title: 'E-mail', dataIndex: 'email' },
+    { title: 'password', dataIndex: 'password' },
+    {
+      title: 'Edit User',
+      dataIndex: '',
+      render: function (o: any, row: any, index: any) {
+        const { id } = row;
+        return (
+          <div>
+            <Button className="mr-15" type="primary" onClick={() => changeUserData(row)}>
+              Edit
+            </Button>
+            <Button className="mr-15" type="primary" onClick={() => removeUser(id)}>
+              Remove
+            </Button>
+            <Link className="btn btn--gray btn--small" to={`/dashboard/users/${id}`}>
+              <Button className="mr-15" type="primary">
+                View More
+              </Button>
+            </Link>
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
-    <div className="table">
-      {isLoading && <Loader />}
-      {error && <p>Error!!</p>}
-      <div className="user">
-        <span className="user__cell">ID</span>
-        <span className="user__cell">FIRST NAME</span>
-        <span className="user__cell">LAST NAME</span>
-        <span className="user__cell">EMAIL</span>
-        <span className="user__cell">PASSWORD</span>
-        <span className="user__cell">EDIT USER DATA</span>
-      </div>
-      {isSuccess &&
-        users.map((element: RegisterType) => {
-          const { id, firstName, lastName, email, password } = element;
-          return (
-            <div className="user" key={id}>
-              <span className="user__cell">{id}</span>
-              <span className="user__cell">{firstName}</span>
-              <span className="user__cell">{lastName}</span>
-              <span className="user__cell">{email}</span>
-              <span className="user__cell">{password}</span>
-              <span className="user__cell user__cell--edit">
-                <button className="btn btn--gray btn--small" onClick={() => changeUserData(element)}>
-                  Edit
-                </button>
-                <button className="btn btn--gray btn--small" onClick={() => removeUser(id)}>
-                  Remove
-                </button>
-                <Link className="btn btn--gray btn--small" to={`/dashboard/users/${id}`}>
-                  View More
-                </Link>
-              </span>
-            </div>
-          );
-        })}
-      {isModalVisible && (
-        <Modal closeModal={closeModal}>
-          <EditUserForm item={item!} closeModal={closeModal} />
-        </Modal>
-      )}
+    <div>
+      <Container>
+        <Row gy={4}>
+          <Col size={12}>
+            <Button onClick={addNewUser}>NEW USER</Button>
+          </Col>
+          <Col size={12}>
+            {isLoading && <Loader.Inline />}
+            {error && <p>Error!!</p>}
+            {isSuccess && <Table data={users} columns={columns} />}
+          </Col>
+        </Row>
+      </Container>
+      <ModalComp
+        open={isModalVisible}
+        closeModal={closeModal}
+        title={isFormVisible ? 'Edit User:' : 'Create new user:'}
+      >
+        {isFormVisible ? <EditUserForm item={item!} /> : <CreateUserForm />}
+      </ModalComp>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import Users from 'components/Users';
 import CreateUser from 'features/CreateUser';
 import UserDetails from 'features/UserDetails';
 import EditUser from 'features/EditUser';
-import './styles/index.scss';
+import 'ebs-design/dist/styles/index.scss';
 
 const queryClient = new QueryClient();
 

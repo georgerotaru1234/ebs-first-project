@@ -1,17 +1,15 @@
 import React from 'react';
-import Statistics from 'components/Statistics';
+import { Layout } from 'ebs-design';
 import Navigation from 'components/Nav';
+import TopBar from 'components/TopBar';
 
 const Dashboard: React.FC = ({ children }) => {
   return (
-    <div className="dashboard-wrapper">
+    <Layout>
+      <TopBar />
       <Navigation />
-      <div className="fix-content-overflow"></div>
-      <div className="wrapper">
-        <Statistics />
-        {children}
-      </div>
-    </div>
+      <Layout.Content>{children}</Layout.Content>
+    </Layout>
   );
 };
 

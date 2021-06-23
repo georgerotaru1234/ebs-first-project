@@ -1,18 +1,17 @@
-import { RemoveIcon } from 'icons/index';
+import { Modal } from 'ebs-design';
+
 interface Props {
   children: React.ReactNode;
   closeModal: () => void;
+  open: boolean;
+  title: string;
 }
-const Modal = ({ children, closeModal }: Props) => {
+
+const ModalComp = ({ children, closeModal, open, title }: Props) => {
   return (
-    <div className="modal">
-      <div className="modal__wrapper">
-        <span className="close-modal" onClick={() => closeModal()}>
-          <RemoveIcon />
-        </span>
-        <div>{children}</div>
-      </div>
-    </div>
+    <Modal open={open} onClose={closeModal} title={title}>
+      <Modal.Content>{children}</Modal.Content>
+    </Modal>
   );
 };
-export default Modal;
+export default ModalComp;

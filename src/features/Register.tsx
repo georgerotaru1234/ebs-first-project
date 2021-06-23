@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { Alert, Container, Space, Row, Col, Form, Input, Button, Icon as SVGIcon } from 'ebs-design';
 import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { registerUser } from 'api/endpoints';
-import { validateForm, isLoggedIn } from 'utils';
-import Loader from 'components/Loader';
-import Alert from 'components/Alert';
+import { isLoggedIn } from 'utils';
 
 const Register = () => {
   let history = useHistory();
@@ -17,146 +16,83 @@ const Register = () => {
       }, 2000);
     },
   });
-  const [registerData, setRegisterData] = useState<RegisterType>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [alert, setAlert] = useState({
-    isVisible: false,
-  });
-  const [errorArray, setErrorArray] = useState<{ errors: string[] }>({
-    errors: [],
-  });
 
-  const handleForm = (e: React.FormEvent<EventTarget>) => {
-    e.preventDefault();
-    const formValidation = validateForm(registerData);
-    if (formValidation === true) {
-      setErrorArray({ errors: [] });
-      mutate({
-        firstName: registerData.firstName,
-        lastName: registerData.lastName,
-        email: registerData.email,
-        password: registerData.password,
-      });
-      setRegisterData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      });
-      setAlert({ isVisible: true });
-    } else {
-      setErrorArray({ errors: formValidation });
-    }
+  const [alert, setAlert] = useState(false);
+
+  const handleForm = (registerData: RegisterType) => {
+    mutate({
+      firstName: registerData.firstName,
+      lastName: registerData.lastName,
+      email: registerData.email,
+      password: registerData.password,
+    });
+    setAlert(true);
   };
 
   return (
-    <div className="register vertical--center">
+    <Container>
       {isLoggedIn() && <Redirect to="/" />}
-      <form className="form" onSubmit={handleForm}>
-        <h5 className="form__title">Register</h5>
-        {isLoading && <Loader />}
-        {error && <p>Error!</p>}
-        {alert.isVisible ? (
-          <Alert className="alert alert--success">Your account was created successfully!</Alert>
-        ) : null}
-        {errorArray.errors.length !== 0
-          ? errorArray.errors.map((error: string, index: number) => {
-              return (
-                <Alert key={index} className="alert alert--danger">
-                  {error}
-                </Alert>
-              );
-            })
-          : null}
+      <Row>
+        <Col size={4} offset={4}>
+          {error && <p>Error!</p>}
+          {alert ? <Alert icon message="Your account has been registered!" /> : null}
+          <Form onFinish={handleForm} className="mt-20">
+            <Form.Field name="firstName" label="First Name" rules={[{ required: true }, { min: 3 }]}>
+              <Input />
+            </Form.Field>
 
-        <div className="form__group">
-          <label className="form__label">First Name</label>
-          <input
-            className="form__input"
-            type="text"
-            name="firstName"
-            value={registerData.firstName}
-            onChange={(e) =>
-              setRegisterData((prevData) => ({
-                ...prevData,
-                firstName: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Last Name</label>
-          <input
-            className="form__input"
-            type="text"
-            name="lastName"
-            value={registerData.lastName}
-            onChange={(e) =>
-              setRegisterData((prevData) => ({
-                ...prevData,
-                lastName: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">E-mail</label>
-          <input
-            className="form__input"
-            type="text"
-            name="email"
-            value={registerData.email}
-            onChange={(e) =>
-              setRegisterData((prevData) => ({
-                ...prevData,
-                email: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Password</label>
-          <input
-            className="form__input"
-            type="password"
-            name="password"
-            value={registerData.password}
-            onChange={(e) =>
-              setRegisterData((prevData) => ({
-                ...prevData,
-                password: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Confirm Password</label>
-          <input
-            className="form__input"
-            type="password"
-            name="confirmPassword"
-            value={registerData.confirmPassword}
-            onChange={(e) =>
-              setRegisterData((prevData) => ({
-                ...prevData,
-                confirmPassword: e.target.value,
-              }))
-            }
-          />
-        </div>
-        <div className="form__footer">
-          <Link className="form__link" to="/">
-            I already have and account.
-          </Link>
-          <button className="btn btn--gray btn--small">Register</button>
-        </div>
-      </form>
-    </div>
+            <Form.Field name="lastName" label="Last Name" rules={[{ required: true }, { min: 3 }]}>
+              <Input />
+            </Form.Field>
+            <Form.Field name="email" label="E-mail" rules={[{ required: true }]}>
+              <Input />
+            </Form.Field>
+
+            <Form.Field
+              name="password"
+              label="Password"
+              rules={[
+                { required: true },
+                {
+                  pattern: /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*[^\w\s])\S{8,}$/,
+                  message:
+                    'Password must contain minimum eight characters, at least one letter, at least one capital letter, at least one special character and one number!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Field>
+
+            <Form.Field
+              name="confirmPassword"
+              label="Confirm Password"
+              rules={[
+                { required: true },
+                ({ getFieldValue }) => ({
+                  async validator(_, value) {
+                    const password = getFieldValue('password');
+                    if (password && password !== value) {
+                      return Promise.reject("Confirm Password and Password are'nt equal! ");
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
+            >
+              <Input />
+            </Form.Field>
+            <Space align="center" justify="space-between">
+              <Link to="/">
+                <Button>Go to login page</Button>
+              </Link>
+              <Button type="primary" submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading && true}>
+                Register
+              </Button>
+            </Space>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
