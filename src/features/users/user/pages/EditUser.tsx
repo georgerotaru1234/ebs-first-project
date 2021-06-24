@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Form, Input, Button, Alert, Container, Row, Col, Loader, Icon as SVGIcon } from 'ebs-design';
 import { useQuery, useMutation } from 'react-query';
-import { getSingleUser, updateUser } from 'api/endpoints';
+import { getSingleUser, updateUser } from 'api/users';
 import { RegisterType } from 'types/types';
 
 const EditUserForm = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: prevUser, isLoading, error, isSuccess } = useQuery('user', () => getSingleUser(id), { enabled: !!id });
+  const {
+    data: prevUser,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useQuery('user', () => getSingleUser(id), { enabled: !!id });
   const { mutate } = useMutation(updateUser);
 
   const [alert, setAlert] = useState(false);
@@ -29,7 +35,7 @@ const EditUserForm = () => {
       <Row>
         <Col size={4}>
           {isLoading && <Loader.Inline />}
-          {error && <p>Error!!</p>}
+          {isError && <p>Error: {error}</p>}
           {alert && <Alert icon message="The user data was changed successfully!" />}
           {isSuccess && (
             <Form initialValues={prevUser} onFinish={handleNewUserForm}>

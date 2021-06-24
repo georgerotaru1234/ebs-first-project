@@ -1,11 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { Table, Button, Loader } from 'ebs-design';
-import { getSingleUser } from 'api/endpoints';
+import { getSingleUser } from 'api/users';
+import { RegisterType } from 'types/types';
 
-const User = () => {
+const SingleUser = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: user, isLoading, error, isSuccess } = useQuery('user', () => getSingleUser(id));
+  const { data: user, isLoading, isError, error, isSuccess } = useQuery('user', () => getSingleUser(id));
 
   const columns = [
     { title: 'Id', dataIndex: 'id' },
@@ -16,11 +17,10 @@ const User = () => {
     {
       title: 'Edit User',
       dataIndex: '',
-      render: function (o: any, row: any, index: any) {
-        const { id } = row;
+      render: function (row: RegisterType) {
         return (
           <div>
-            <Link to={`/dashboard/users/${id}/edit`}>
+            <Link to={`/dashboard/users/${row.id}/edit`}>
               <Button className="mr-15" type="primary">
                 Edit User
               </Button>
@@ -34,10 +34,10 @@ const User = () => {
   return (
     <div>
       {isLoading && <Loader.Inline />}
-      {error && <p>Error!</p>}
-      {isSuccess && <Table data={[user]} columns={columns} />}
+      {isError && <p>Error: {error}</p>}
+      {isSuccess && <Table data={user ? [user] : []} columns={columns} />}
     </div>
   );
 };
 
-export default User;
+export default SingleUser;

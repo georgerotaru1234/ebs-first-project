@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { createUser } from 'api/endpoints';
+import { createUser } from 'api/users';
 import { RegisterType } from 'types/types';
 import { Form, Input, Button, Alert, Icon as SVGIcon } from 'ebs-design';
 
 const CreateUserForm = () => {
-  const [alert, setAlert] = useState(false);
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation('user', createUser);
+  const { mutate, isLoading, isSuccess } = useMutation('user', createUser);
 
   const handleNewUserForm = (formData: RegisterType) => {
     mutate(
@@ -20,7 +19,6 @@ const CreateUserForm = () => {
       {
         onSuccess: () => {
           queryClient.refetchQueries(['users'], { stale: true, exact: true });
-          setAlert(true);
         },
       },
     );
@@ -28,7 +26,7 @@ const CreateUserForm = () => {
 
   return (
     <div>
-      {alert && <Alert icon message="The user has successfully created!" />}
+      {isSuccess && <Alert icon message="The user has successfully created!" />}
       <Form onFinish={handleNewUserForm}>
         <Form.Field name="firstName" label="First Name" rules={[{ required: true }, { min: 3 }]}>
           <Input />
@@ -75,7 +73,7 @@ const CreateUserForm = () => {
           <Input />
         </Form.Field>
 
-        <Button submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading && true}>
+        <Button submit prefix={<SVGIcon type="refresh" />} loading={isLoading}>
           Create new user account
         </Button>
       </Form>

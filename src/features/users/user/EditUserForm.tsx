@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { updateUser } from 'api/endpoints';
+import { updateUser } from 'api/users';
 import { RegisterType } from 'types/types';
 import { Form, Input, Button, Container, Row, Col, Alert, Icon as SVGIcon } from 'ebs-design';
 
@@ -11,8 +11,7 @@ interface ModalProps {
 
 const EditUserForm: React.FC<ModalProps> = ({ item }) => {
   const queryClient = useQueryClient();
-  const [alert, setAlert] = useState(false);
-  const { mutate, isLoading, error } = useMutation(updateUser);
+  const { mutate, isLoading, isError, error, isSuccess } = useMutation(updateUser);
 
   const editForm = (data: RegisterType) => {
     mutate(
@@ -26,7 +25,6 @@ const EditUserForm: React.FC<ModalProps> = ({ item }) => {
       {
         onSuccess: () => {
           queryClient.refetchQueries(['users'], { stale: true, exact: true });
-          setAlert(true);
         },
       },
     );
@@ -36,8 +34,8 @@ const EditUserForm: React.FC<ModalProps> = ({ item }) => {
     <Container>
       <Row>
         <Col size={12}>
-          {error && <p>Error!!</p>}
-          {alert && <Alert icon message="The user data was changed successfully!" />}
+          {isError && <p>Error: {error}</p>}
+          {isSuccess && <Alert icon message="The user data was changed successfully!" />}
           <Form initialValues={item} onFinish={editForm}>
             <Form.Field name="id" label="Id">
               <Input disabled />

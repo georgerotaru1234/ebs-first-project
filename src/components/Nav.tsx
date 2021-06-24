@@ -4,6 +4,7 @@ import { Sidebar, Icon } from 'ebs-design';
 const Navigation = () => {
   const history = useHistory();
   const { pathname } = history.location;
+
   const handleLogOut = () => {
     localStorage.clear();
     history.push('/');

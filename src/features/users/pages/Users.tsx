@@ -4,14 +4,14 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Table, Button, Container, Row, Col, Loader } from 'ebs-design';
 import { RegisterType } from 'types/types';
 import { useUsers } from 'hooks/useUsers';
-import { deleteUser } from 'api/endpoints';
-import ModalComp from './Modal';
-import CreateUserForm from './CreateUserForm';
-import EditUserForm from './EditUserForm';
+import { deleteUser } from 'api/users';
+import ModalComp from '../../../components/ModalComp';
+import CreateUserForm from '../user/CreateUserForm';
+import EditUserForm from '../user/EditUserForm';
 
 const Users = () => {
   const queryClient = useQueryClient();
-  const { data: users, isLoading, error, isSuccess } = useUsers();
+  const { data: users, isLoading, error, isError, isSuccess } = useUsers();
   const [isModalVisible, setModalVisibility] = useState(false);
   const [isFormVisible, setFormVisibility] = useState(false);
   const [item, setItem] = useState<RegisterType>();
@@ -62,7 +62,7 @@ const Users = () => {
             <Button className="mr-15" type="primary" onClick={() => removeUser(id)}>
               Remove
             </Button>
-            <Link className="btn btn--gray btn--small" to={`/dashboard/users/${id}`}>
+            <Link to={`/dashboard/users/${id}`}>
               <Button className="mr-15" type="primary">
                 View More
               </Button>
@@ -82,7 +82,7 @@ const Users = () => {
           </Col>
           <Col size={12}>
             {isLoading && <Loader.Inline />}
-            {error && <p>Error!!</p>}
+            {isError && <p>Error: {error}</p>}
             {isSuccess && <Table data={users} columns={columns} />}
           </Col>
         </Row>

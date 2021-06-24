@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { isLoggedIn } from 'utils';
-import Dashboard from 'features/Dashboard';
+import Dashboard from 'features/dashboard/pages/Dashboard';
 
 export const PrivateRoute = ({ component: Component, ...rest }: any) => {
   return (

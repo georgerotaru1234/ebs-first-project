@@ -6,37 +6,35 @@ import { useUsers } from 'hooks/useUsers';
 import { isLoggedIn } from 'utils';
 
 const Login = () => {
-  const { data: users, status } = useUsers();
   const history = useHistory();
-  const [error, setError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const { data: users, isLoading, error, isError } = useUsers();
 
   return (
     <Container>
       <Space align="center" justify="center" direction="vertical" className="mt-20">
         {isLoggedIn() ? <Redirect to="/dashboard/users" /> : null}
-        {status === 'error' && <p>Something is wrong!</p>}
+        {isError && <p>Error: {error}</p>}
         <Form
           onFinish={(values) => {
-            users.filter((item: RegisterType) => {
-              if (item.email === values.email && item.password === values.password) {
-                for (let element in item) {
-                  if (element === 'password') {
-                    continue;
+            users &&
+              users.filter((item: RegisterType) => {
+                if (item.email === values.email && item.password === values.password) {
+                  for (let element in item) {
+                    if (element === 'password') {
+                      continue;
+                    }
+                    localStorage.setItem(element, item[element as keyof RegisterType] + '');
                   }
-                  localStorage.setItem(element, item[element as keyof RegisterType] + '');
+                  setLoginError(false);
+                  history.push('/dashboard/users');
                 }
-                setError(false);
-                history.push('/dashboard/users');
-              }
-              setError(true);
-              return false;
-            });
-          }}
-          onFinishFailed={({ values, errorFields, outOfDate }) => {
-            console.log('dasdasdas', { values, errorFields, outOfDate });
+                setLoginError(true);
+                return false;
+              });
           }}
         >
-          {error && <Alert icon message="Your E-mail or password are incorect!" type="error" />}
+          {loginError && <Alert icon message="Your E-mail or password are incorect!" type="error" />}
           <Form.Field name="email" label="email" extra="This field is required" rules={[{ required: true }]}>
             <Input />
           </Form.Field>
@@ -48,12 +46,7 @@ const Login = () => {
             <Link to="/register">
               <Button>GO TO REGISTER PAGE</Button>
             </Link>
-            <Button
-              type="primary"
-              submit={true}
-              prefix={<SVGIcon type="refresh" />}
-              loading={status === 'loading' && true}
-            >
+            <Button type="primary" submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading}>
               Login
             </Button>
           </Space>

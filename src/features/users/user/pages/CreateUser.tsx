@@ -1,5 +1,5 @@
-import CreateUserForm from 'components/CreateUserForm';
 import { Container, Row, Col } from 'ebs-design';
+import CreateUserForm from 'features/users/user/CreateUserForm';
 
 const CreateUser = () => {
   return (

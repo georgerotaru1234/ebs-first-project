@@ -1,20 +1,6 @@
 {
   "posts": [
     {
-      "userId": 1,
-      "id": 2,
-      "createdAt": "06-06-2021",
-      "title": "nesciunt quas odiodsadsad",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est1111111"
-    },
-    {
-      "userId": 1,
-      "id": 6,
-      "createdAt": "2021-06-05",
-      "title": "nesciunt quas odiodasdasdasdds",
-      "body": "repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed estasdasdas\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor nequedsadasdsad"
-    },
-    {
       "title": "fds",
       "body": "fds",
       "createdAt": "08-06-2021",
@@ -140,6 +126,13 @@
       "password": "12341234As!",
       "email": "georgerotaru1234@gmail.com",
       "id": 13
+    },
+    {
+      "firstName": "George",
+      "lastName": "Rotaru",
+      "email": "georgerotaru1234@gmail.com",
+      "password": "22061993As!",
+      "id": 14
     }
   ]
 }

@@ -1,9 +1,11 @@
-import User from 'components/User';
+import SingleUser from 'features/users/user/SingleUser';
+
 const UserDetails = () => {
   return (
     <div>
-      <User />
+      <SingleUser />
     </div>
   );
 };
+
 export default UserDetails;

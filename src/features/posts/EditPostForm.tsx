@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
 import { Form, Textarea, Button, DatePicker, Alert, Icon as SVGIcon } from 'ebs-design';
 import { useMutation, useQueryClient } from 'react-query';
-import { updatePost } from 'api/endpoints';
+import { updatePost } from 'api/posts';
 import { PostType } from 'types/types';
 interface PostProps {
   post: PostType;
 }
 const EditPostForm = ({ post }: PostProps) => {
   const queryClient = useQueryClient();
-  const [alert, setAlert] = useState(false);
 
-  const { mutate, isLoading, error } = useMutation(updatePost);
+  const { mutate, isLoading, isError, error, isSuccess } = useMutation(updatePost);
 
   const submitPost = (newPost: PostType) => {
     mutate(
@@ -18,17 +16,15 @@ const EditPostForm = ({ post }: PostProps) => {
       {
         onSuccess: () => {
           queryClient.refetchQueries(['posts'], { stale: true, exact: true });
-          setAlert(true);
         },
       },
     );
-    setAlert(false);
   };
 
   return (
     <div>
-      {error && <p>Error!</p>}
-      {alert && <Alert icon message="The post was successfully changed!" />}
+      {isError && <p>Error: {error}</p>}
+      {isSuccess && <Alert icon message="The post was successfully changed!" />}
       <Form initialValues={post} onFinish={submitPost}>
         <Form.Field name="title" label="Post Title:" extra="This field is required">
           <Textarea />

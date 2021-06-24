@@ -4,20 +4,20 @@ import { Alert, Container, Space, Row, Col, Form, Input, Button, Icon as SVGIcon
 import { RegisterType } from 'types/types';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
-import { registerUser } from 'api/endpoints';
+import { registerUser } from 'api/auth';
 import { isLoggedIn } from 'utils';
 
 const Register = () => {
   let history = useHistory();
-  const { mutate, isLoading, error } = useMutation(registerUser, {
+  const [alert, setAlert] = useState(false);
+
+  const { mutate, isLoading, isError, error } = useMutation(registerUser, {
     onSuccess: () => {
       setTimeout(() => {
         history.push('/');
       }, 2000);
     },
   });
-
-  const [alert, setAlert] = useState(false);
 
   const handleForm = (registerData: RegisterType) => {
     mutate({
@@ -34,7 +34,7 @@ const Register = () => {
       {isLoggedIn() && <Redirect to="/" />}
       <Row>
         <Col size={4} offset={4}>
-          {error && <p>Error!</p>}
+          {isError && <p>Error: {error}!</p>}
           {alert ? <Alert icon message="Your account has been registered!" /> : null}
           <Form onFinish={handleForm} className="mt-20">
             <Form.Field name="firstName" label="First Name" rules={[{ required: true }, { min: 3 }]}>
@@ -85,7 +85,7 @@ const Register = () => {
               <Link to="/">
                 <Button>Go to login page</Button>
               </Link>
-              <Button type="primary" submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading && true}>
+              <Button type="primary" submit={true} prefix={<SVGIcon type="refresh" />} loading={isLoading}>
                 Register
               </Button>
             </Space>
